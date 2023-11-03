@@ -20,7 +20,7 @@
   # programs are installed and configuration applied to dotfiles
   home.packages = [
     # user selected packages
-    pkgs.emacs29
+    pkgs.emacs29-gtk3
     # Fleek Bling
     pkgs.git
     pkgs.htop

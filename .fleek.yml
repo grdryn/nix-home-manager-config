@@ -18,7 +18,7 @@ min_version: 0.8.4
 name: Fleek Configuration
 overlays: {}
 packages:
-    - emacs29
+    - emacs29-gtk3
 paths:
     - $HOME/bin
     - $HOME/.local/bin
