@@ -20,14 +20,45 @@ name: Fleek Configuration
 overlays:
   {}
 packages:
+  - ansible
   - chkrootkit
+  - cargo
+  - dbus
+  - dconf
+  - dig
+  - flac
+  - fontconfig
+  - gcc_multi
+  - get_iplayer
   - github-cli
+  - go
   - hub
+  - jdk17
+  - jq
+  - krb5
+  - lame
   - lm_sensors
+  - maven
+  - mediainfo
+  - mkvtoolnix-cli
+  - mlocate
   - openldap
+  - openssl
+  - rtorrent
   - syncthing
+  - texinfoInteractive
+  - tmux
+  - virtualenv
+  - weechat
   - wireguard-tools
+  - wl-clipboard
+  - yt-dlp
 paths:
+  - $HOME/go/bin
+  - $HOME/.krew/bin
+  - $HOME/.jbang/bin
+  - $PYENV_ROOT/bin
+  - $HOME/.cargo/bin
   - $HOME/bin
   - $HOME/.local/bin
 programs:

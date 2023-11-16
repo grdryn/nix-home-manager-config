@@ -20,13 +20,39 @@
   # programs are installed and configuration applied to dotfiles
   home.packages = [
     # user selected packages
+    pkgs.ansible
     pkgs.chkrootkit
+    pkgs.cargo
+    pkgs.dbus
+    pkgs.dconf
+    pkgs.dig
+    pkgs.flac
+    pkgs.fontconfig
+    pkgs.gcc_multi
+    pkgs.get_iplayer
     pkgs.github-cli
+    pkgs.go
     pkgs.hub
+    pkgs.jdk17
+    pkgs.jq
+    pkgs.krb5
+    pkgs.lame
     pkgs.lm_sensors
+    pkgs.maven
+    pkgs.mediainfo
+    pkgs.mkvtoolnix-cli
+    pkgs.mlocate
     pkgs.openldap
+    pkgs.openssl
+    pkgs.rtorrent
     pkgs.syncthing
+    pkgs.texinfoInteractive
+    pkgs.tmux
+    pkgs.virtualenv
+    pkgs.weechat
     pkgs.wireguard-tools
+    pkgs.wl-clipboard
+    pkgs.yt-dlp
     # Fleek Bling
     pkgs.git
     pkgs.htop
