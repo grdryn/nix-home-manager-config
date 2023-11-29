@@ -47,6 +47,7 @@ packages:
     - syncthing
     - texinfoInteractive
     - tmux
+    - unixtools.netstat
     - virtualenv
     - weechat
     - wireguard-tools

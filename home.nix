@@ -48,6 +48,7 @@
     pkgs.syncthing
     pkgs.texinfoInteractive
     pkgs.tmux
+    pkgs.unixtools.netstat
     pkgs.virtualenv
     pkgs.weechat
     pkgs.wireguard-tools
