@@ -1,0 +1,10 @@
+keys:
+  - &admin_grdryn age1ckd8cv988ct6xg347zctftkdgzla9jw00c2k54n2rntwlk6lusvq4vjtta
+  - &laptop_t580 age12vj4ygsfzuw3f40gan7j5qjlmw53jqcf5d2vx8g4l00209fju3jqydvtzz
+
+creation_rules:
+  - path_regex: secrets/[^/]+\.(yaml|json|env|ini|gitconfig)$
+    key_groups:
+    - age:
+      - *admin_grdryn
+      - *laptop_t580

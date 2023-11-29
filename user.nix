@@ -1,5 +1,23 @@
-{ pkgs, misc, ... }: {
+{ inputs, pkgs, config, misc, ... }: {
   # FEEL FREE TO EDIT: This file is NOT managed by fleek.
+
+  imports = [
+    inputs.sops-nix.homeManagerModules.sops
+  ];
+
+  sops = {
+    age.keyFile = "/var/home/gryan/.config/sops/age/keys.txt";
+    # It's also possible to use a ssh key, but only when it has no password:
+    #age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+    defaultSopsFile = ./secrets/secrets.yaml;
+    secrets = {
+      github_gitconfig = {
+        sopsFile = ./secrets/github.gitconfig;
+        format = "binary";
+        path = "${config.home.homeDirectory}/.config/git/config.d/github.gitconfig";
+      };
+    };
+  };
 
   home.sessionVariables = {
     GOPATH = "$HOME/go";
@@ -45,6 +63,10 @@
   };
 
   programs.git = {
+    includes = [
+      { path = config.sops.secrets.github_gitconfig.path; }
+    ];
+
     ignores = [
       "*~"
       "*.swp"
@@ -247,10 +269,6 @@
           insteadOf = "ghhm://";
           pushInsteadOf = "ghhm://";
         };
-      };
-
-      github = {
-        user = "grdryn";
       };
 
       hub = {
