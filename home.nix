@@ -31,6 +31,7 @@
     pkgs.gcc_multi
     pkgs.get_iplayer
     pkgs.github-cli
+    pkgs.gnumake
     pkgs.go
     pkgs.hub
     pkgs.jdk17

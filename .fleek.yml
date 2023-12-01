@@ -30,6 +30,7 @@ packages:
     - gcc_multi
     - get_iplayer
     - github-cli
+    - gnumake
     - go
     - hub
     - jdk17
