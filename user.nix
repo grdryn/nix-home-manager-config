@@ -17,6 +17,8 @@
       . "$HOME/applications/maven-mvnd/bin/mvnd-bash-completion.bash"
       . "$HOME/applications/go-jira/jira-completion.bash"
 
+      bind -x '"\C-p": __atuin_history'
+
       #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
       [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
     '';
