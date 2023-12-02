@@ -19,6 +19,8 @@ $ apply-$(hostname)
 ```
 
 Your actual aliases are listed below:
+    apply-localhost.localdomain = "nix run --impure home-manager/master -- -b bak switch --flake .#gryan@localhost.localdomain";
+
     fleeks = "cd ~/.local/share/fleek";
 
     j! = "jbang";

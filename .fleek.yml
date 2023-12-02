@@ -1,4 +1,5 @@
 aliases:
+    apply-localhost.localdomain: nix run --impure home-manager/master -- -b bak switch --flake .#gryan@localhost.localdomain
     fleeks: cd ~/.local/share/fleek
     j!: jbang
     latest-fleek-version: nix run https://getfleek.dev/latest.tar.gz -- version
@@ -8,13 +9,13 @@ auto_gc: true
 bling: high
 blocklist: []
 byo_git: false
-ejected: false
+ejected: true
 flakedir: .local/share/fleek
 git:
     autocommit: false
-    autopull: true
+    autopull: false
     autopush: false
-    enabled: true
+    enabled: false
 min_version: 0.8.4
 name: Fleek Configuration
 overlays: {}
