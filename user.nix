@@ -293,4 +293,15 @@
     };
   };
 
+  programs.ssh = {
+    enable = true;
+    # Drop-in includes may be unmanaged or encrypted
+    includes = [".config.d/*"];
+    controlMaster = "auto";
+    controlPersist = "yes";
+    matchBlocks = {
+      github.extraOptions.UpdateHostKeys = "yes";
+    };
+  };
+
 }
