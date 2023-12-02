@@ -24,6 +24,26 @@
     '';
   };
 
+  # https://atuin.sh/docs/config/
+  programs.atuin.settings = {
+    dialect = "uk";
+    workspaces = true;
+    enter_accept = true;
+    # Use Ctrl-0 .. Ctrl-9 instead of Alt-0 .. Alt-9 UI shortcuts
+    ctrl_n_shortcuts = true;
+
+    common_subcommands = [
+      "cargo"
+      "go"
+      "git"
+      "npm"
+      "yarn"
+      "pnpm"
+      "kubectl"
+      "oc"
+    ];
+  };
+
   programs.git = {
     ignores = [
       "*~"
