@@ -33,6 +33,7 @@
     pkgs.gnumake
     pkgs.go
     pkgs.hub
+    pkgs.jbake
     pkgs.jdk17
     pkgs.jq
     pkgs.krb5
