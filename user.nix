@@ -1,5 +1,4 @@
 { inputs, pkgs, config, misc, ... }: {
-  # FEEL FREE TO EDIT: This file is NOT managed by fleek.
 
   imports = [
     inputs.sops-nix.homeManagerModules.sops
