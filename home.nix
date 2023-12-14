@@ -26,6 +26,12 @@
     pkgs.cargo
     pkgs.dbus
     pkgs.dconf
+    pkgs.dhall
+    pkgs.dhall-bash
+    pkgs.dhall-json
+    pkgs.dhall-lsp-server
+    pkgs.dhall-nix
+    pkgs.dhall-yaml
     pkgs.dig
     pkgs.flac
     pkgs.fontconfig
