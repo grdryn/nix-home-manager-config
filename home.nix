@@ -20,10 +20,12 @@
     # user selected packages
     pkgs.age
     pkgs.ansible
+    pkgs.azure-cli
     pkgs.bandwhich
     pkgs.bitwarden-cli
     pkgs.chkrootkit
     pkgs.cargo
+    pkgs.cargo-wasi
     pkgs.dbus
     pkgs.dconf
     pkgs.dhall
@@ -33,6 +35,7 @@
     pkgs.dhall-nix
     pkgs.dhall-yaml
     pkgs.dig
+    pkgs.ffmpeg
     pkgs.flac
     pkgs.fontconfig
     pkgs.gcc_multi
@@ -40,8 +43,12 @@
     pkgs.github-cli
     pkgs.gnumake
     pkgs.go
+    pkgs.gosec
     pkgs.hub
+    pkgs.get_iplayer
+    pkgs.git-crypt
     pkgs.jbake
+    pkgs.jbang
     pkgs.jdk17
     pkgs.jq
     pkgs.krb5
@@ -60,17 +67,26 @@
     pkgs.openldap
     pkgs.openshift
     pkgs.openssl
+    pkgs.python311Full
+    pkgs.python311Packages.pip
+    pkgs.python311Packages.psutil
     pkgs.rtorrent
+    pkgs.rustc
+    pkgs.rustfmt
+    pkgs.rust-analyzer
     pkgs.sops
     pkgs.syncthing
     pkgs.texinfoInteractive
     pkgs.tmux
     pkgs.unixtools.netstat
+    pkgs.libossp_uuid
     pkgs.virtualenv
     pkgs.weechat
     pkgs.wireguard-tools
     pkgs.wl-clipboard
     pkgs.yt-dlp
+    pkgs.yubikey-manager
+    pkgs.yubioath-flutter
     # Fleek Bling
     pkgs.git
     pkgs.htop
