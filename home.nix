@@ -20,6 +20,7 @@
     # user selected packages
     pkgs.age
     pkgs.ansible
+    pkgs.bandwhich
     pkgs.bitwarden-cli
     pkgs.chkrootkit
     pkgs.cargo
