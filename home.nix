@@ -20,6 +20,7 @@
     # user selected packages
     pkgs.age
     pkgs.ansible
+    pkgs.bitwarden-cli
     pkgs.chkrootkit
     pkgs.cargo
     pkgs.dbus
@@ -37,13 +38,20 @@
     pkgs.jdk17
     pkgs.jq
     pkgs.krb5
+    pkgs.krew
+    pkgs.kubectl
+    pkgs.kubectl-tree
+    pkgs.kubectl-view-secret
+    pkgs.k9s
     pkgs.lame
     pkgs.lm_sensors
     pkgs.maven
     pkgs.mediainfo
     pkgs.mkvtoolnix-cli
     pkgs.mlocate
+    pkgs.ocm
     pkgs.openldap
+    pkgs.openshift
     pkgs.openssl
     pkgs.rtorrent
     pkgs.sops
