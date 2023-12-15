@@ -44,6 +44,8 @@
     pkgs.gnumake
     pkgs.go
     pkgs.gosec
+    pkgs.go-jira
+    pkgs.groovy
     pkgs.hub
     pkgs.get_iplayer
     pkgs.git-crypt
@@ -56,6 +58,9 @@
     pkgs.kubectl
     pkgs.kubectl-tree
     pkgs.kubectl-view-secret
+    pkgs.kubebuilder
+    pkgs.kubernetes-helm
+    pkgs.kustomize
     pkgs.k9s
     pkgs.lame
     pkgs.lm_sensors
@@ -63,10 +68,12 @@
     pkgs.mediainfo
     pkgs.mkvtoolnix-cli
     pkgs.mlocate
+    pkgs.minikube
     pkgs.ocm
     pkgs.openldap
     pkgs.openshift
     pkgs.openssl
+    pkgs.operator-sdk
     pkgs.python311Full
     pkgs.python311Packages.pip
     pkgs.python311Packages.psutil
@@ -104,6 +111,10 @@
     pkgs.cheat
     pkgs.just
     (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
+
+    # OpenStack
+    pkgs.openstackclient
+    pkgs.swiftclient
   ];
   fonts.fontconfig.enable = true;
   home.stateVersion =
