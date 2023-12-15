@@ -320,5 +320,12 @@
       github.extraOptions.UpdateHostKeys = "yes";
     };
   };
+  # Workaround for ssh config permissions
+  # https://github.com/nix-community/home-manager/issues/322
+  # https://stackoverflow.com/questions/76955208/nixos-home-manager-ssh-config-permissions/77496055#77496055
+  home.file.".ssh/config" = {
+    target = ".ssh/config_source";
+    onChange = ''cat ~/.ssh/config_source > ~/.ssh/config && chmod 400 ~/.ssh/config'';
+  };
 
 }
