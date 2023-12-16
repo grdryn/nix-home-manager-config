@@ -1,6 +1,6 @@
 { pkgs, misc, ... }: {
 
-   home.shellAliases = {
+  home.shellAliases = {
     "apply-localhost.localdomain" = "nix run --impure home-manager/master -- -b bak switch --flake .#gryan@localhost.localdomain";
 
     "fleeks" = "cd ~/.local/share/fleek";
@@ -11,10 +11,12 @@
 
     "update-fleek" = "nix run https://getfleek.dev/latest.tar.gz -- update";
 
+    cd = "z";
+
+    cat = "bat";
+
     # bat --plain for unformatted cat
     catp = "bat -P";
+  };
 
-    # replace cat with bat
-    cat = "bat";
-    };
 }
