@@ -28,6 +28,7 @@
     pkgs.cargo-wasi
     pkgs.dbus
     pkgs.dconf
+    pkgs.dconf2nix
     pkgs.dhall
     pkgs.dhall-bash
     pkgs.dhall-json

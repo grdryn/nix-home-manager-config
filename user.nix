@@ -310,6 +310,85 @@
     };
   };
 
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      gtk-theme = "Adwaita-dark";
+      monospace-font-name = "FiraCode Nerd Font Mono Bold 11";
+      clock-show-date = true;
+    };
+
+    "org/gnome/desktop/peripherals/mouse" = {
+      natural-scroll = false;
+    };
+    "org/gnome/desktop/peripherals/touchpad" = {
+      natural-scroll = false;
+    };
+
+    "org/gnome/desktop/privacy" = {
+      old-files-age = mkUint32 7;
+      remove-old-trash-files = true;
+      report-technical-problems = true;
+    };
+
+    "org/gnome/desktop/search-providers" = {
+      disable-external = true;
+    };
+
+    "org/gnome/software" = {
+      allow-updates = false;
+      download-updates = false;
+    };
+
+    "org/gnome/desktop/datetime" = {
+      automatic-timezon = true;
+    };
+
+    "org/gnome/clocks" = {
+      world-clocks = "[{'location': <(uint32 2, <('Raleigh', 'KRDU', true, [(0.62605930672100707, -1.3750818938070426)], [(0.62434085553949348, -1.3725027509582006)])>)>}, {'location': <(uint32 2, <('Atlanta', 'KATL', true, [(0.58713361238621309, -1.4735281501968716)], [(0.5890310819891037, -1.4728481350137095)])>)>}, {'location': <(uint32 2, <('Rio de Janeiro', 'SBRJ', true, [(-0.39968039870670141, -0.75340046626198298)], [(-0.39968039870670141, -0.75456400746111763)])>)>}, {'location': <(uint32 2, <('Waterford', 'EIWF', true, [(0.91083885136922016, -0.12369050670445701)], [(0.91207997245360595, -0.1241268390174556)])>)>}, {'location': <(uint32 2, <('Brno', 'LKTB', true, [(0.857829327355213, 0.291469985083053)], [(0.85870199198121022, 0.29030642643062599)])>)>}, {'location': <(uint32 2, <('Istanbul', 'LTBA', true, [(0.71500322271810779, 0.50294571860079684)], [(0.71590981654476371, 0.505529765824837)])>)>}]";
+    };
+
+    "org/gnome/mutter" = {
+      workspaces-only-on-primary = false;
+    };
+
+    "org/gnome/shell/overrides" = {
+      workspaces-only-on-primary = false;
+    };
+
+    "org/gnome/settings-daemon/plugins/color" = {
+      night-light-enabled = true;
+      #night-light-last-coordinates = mkTuple [ 53.330404550767604 (-6.2591) ];
+    };
+
+    "org/gnome/settings-daemon/plugins/power" = {
+      idle-dim = false;
+      sleep-inactive-ac-type = "nothing";
+      sleep-inactive-battery-type = "nothing";
+    };
+
+    "org/gnome/desktop/session" = {
+      idle-delay = mkUint32 0;
+    };
+
+    "org/gnome/shell/app-switcher" = {
+      current-workspace-only = true;
+    };
+
+    "org/gnome/system/location" = {
+      enabled = true;
+    };
+
+    "org/gnome/shell" = {
+      disable-extension-version-validation = true;
+      disable-user-extensions = true;
+    };
+
+    "org/gnome/desktop/input-sources" = {
+      sources = [ (mkTuple [ "xkb" "us+euro" ]) ];
+      xkb-options = [ "caps:ctrl_modifier" ];
+    };
+  };
+
   programs.ssh = {
     enable = true;
     # Drop-in includes may be unmanaged or encrypted
