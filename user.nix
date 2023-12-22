@@ -407,4 +407,24 @@
     onChange = ''cat ~/.ssh/config_source > ~/.ssh/config && chmod 400 ~/.ssh/config'';
   };
 
+  programs.awscli = {
+    enable = true;
+    settings = {
+      "default" = {
+        region = "eu-west-1";
+        output = "json";
+      };
+    };
+    credentials = {
+      "default" = {
+        credential_process = "aws-bitwarden.sh ca395317-186a-4c26-8453-b05f0105015a";
+      };
+    };
+  };
+
+  home.file.aws-bitwarden = {
+    target = ".local/bin/aws-bitwarden.sh";
+    executable = true;
+    source = ./scripts/aws-bitwarden.sh;
+  };
 }

@@ -20,6 +20,7 @@
     # user selected packages
     pkgs.age
     pkgs.ansible
+    pkgs.awscli2
     pkgs.azure-cli
     pkgs.bandwhich
     pkgs.bitwarden-cli
