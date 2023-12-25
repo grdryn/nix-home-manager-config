@@ -1,4 +1,4 @@
-{ inputs, pkgs, config, misc, ... }: {
+{ config, lib, inputs, pkgs, misc, ... }: {
 
   imports = [
     inputs.sops-nix.homeManagerModules.sops
@@ -325,7 +325,7 @@
     };
 
     "org/gnome/desktop/privacy" = {
-      old-files-age = mkUint32 7;
+      old-files-age = lib.hm.gvariant.mkUint32 7;
       remove-old-trash-files = true;
       report-technical-problems = true;
     };
@@ -357,7 +357,7 @@
 
     "org/gnome/settings-daemon/plugins/color" = {
       night-light-enabled = true;
-      #night-light-last-coordinates = mkTuple [ 53.330404550767604 (-6.2591) ];
+      night-light-last-coordinates = lib.hm.gvariant.mkTuple [ 53.330404550767604 (-6.2591) ];
     };
 
     "org/gnome/settings-daemon/plugins/power" = {
@@ -367,7 +367,7 @@
     };
 
     "org/gnome/desktop/session" = {
-      idle-delay = mkUint32 0;
+      idle-delay = lib.hm.gvariant.mkUint32 0;
     };
 
     "org/gnome/shell/app-switcher" = {
@@ -384,7 +384,7 @@
     };
 
     "org/gnome/desktop/input-sources" = {
-      sources = [ (mkTuple [ "xkb" "us+euro" ]) ];
+      sources = [ ( lib.hm.gvariant.mkTuple [ "xkb" "us+euro" ]) ];
       xkb-options = [ "caps:ctrl_modifier" ];
     };
   };
