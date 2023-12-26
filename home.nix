@@ -24,6 +24,7 @@ in
     ansible
     awscli2
     azure-cli
+    backblaze-b2
     bandwhich
     bitwarden-cli
     chkrootkit
