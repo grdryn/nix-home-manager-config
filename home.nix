@@ -9,7 +9,7 @@ in
     # Configure your nixpkgs instance
     config = {
       # Disable if you don't want unfree packages
-      allowUnfree = true;
+      allowUnfree = false;
     };
   };
 
@@ -106,7 +106,7 @@ in
     glab
     fzf
     ripgrep
-    vscode
+#    vscode
     lazygit
     jq
     yq-go
