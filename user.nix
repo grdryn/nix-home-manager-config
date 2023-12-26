@@ -422,9 +422,4 @@
     };
   };
 
-  home.file.aws-bitwarden = {
-    target = ".local/bin/aws-bitwarden.sh";
-    executable = true;
-    source = ./scripts/aws-bitwarden.sh;
-  };
 }

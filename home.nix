@@ -1,4 +1,9 @@
-{ config, pkgs, misc, ... }: {
+{ config, pkgs, misc, ... }:
+
+let
+  aws-bitwarden = pkgs.callPackage ./scripts/aws-bitwarden {};
+in
+{
 
   nixpkgs = {
     # Configure your nixpkgs instance
@@ -8,11 +13,13 @@
     };
   };
 
-
   # packages are just installed (no configuration applied)
   # programs are installed and configuration applied to dotfiles
   home.packages = [
-    # user selected packages
+    # custom
+    aws-bitwarden
+
+    # from nixpkgs
     pkgs.age
     pkgs.ansible
     pkgs.awscli2
@@ -91,6 +98,7 @@
     pkgs.yt-dlp
     pkgs.yubikey-manager
     pkgs.yubioath-flutter
+
     # Fleek Bling
     pkgs.git
     pkgs.htop
