@@ -15,114 +15,117 @@ in
 
   # packages are just installed (no configuration applied)
   # programs are installed and configuration applied to dotfiles
-  home.packages = [
+  home.packages = with pkgs; [
     # custom
     aws-bitwarden
 
     # from nixpkgs
-    pkgs.age
-    pkgs.ansible
-    pkgs.awscli2
-    pkgs.azure-cli
-    pkgs.bandwhich
-    pkgs.bitwarden-cli
-    pkgs.chkrootkit
-    pkgs.cargo
-    pkgs.cargo-wasi
-    pkgs.dbus
-    pkgs.dconf
-    pkgs.dconf2nix
-    pkgs.dhall
-    pkgs.dhall-bash
-    pkgs.dhall-json
-    pkgs.dhall-lsp-server
-    pkgs.dhall-nix
-    pkgs.dhall-yaml
-    pkgs.dig
-    pkgs.ffmpeg
-    pkgs.flac
-    pkgs.fontconfig
-    pkgs.gcc_multi
-    pkgs.get_iplayer
-    pkgs.github-cli
-    pkgs.gnumake
-    pkgs.go
-    pkgs.gosec
-    pkgs.go-jira
-    pkgs.groovy
-    pkgs.hub
-    pkgs.get_iplayer
-    pkgs.git-crypt
-    pkgs.jbake
-    pkgs.jbang
-    pkgs.jdk17
-    pkgs.jq
-    pkgs.krb5
-    pkgs.krew
-    pkgs.kubectl
-    pkgs.kubectl-tree
-    pkgs.kubectl-view-secret
-    pkgs.kubebuilder
-    pkgs.kubernetes-helm
-    pkgs.kustomize
-    pkgs.k9s
-    pkgs.lame
-    pkgs.lm_sensors
-    pkgs.maven
-    pkgs.mediainfo
-    pkgs.mkvtoolnix-cli
-    pkgs.mlocate
-    pkgs.minikube
-    pkgs.ocm
-    pkgs.openldap
-    pkgs.openshift
-    pkgs.openssl
-    pkgs.operator-sdk
-    pkgs.python311Full
-    pkgs.python311Packages.pip
-    pkgs.python311Packages.psutil
-    pkgs.rtorrent
-    pkgs.rustc
-    pkgs.rustfmt
-    pkgs.rust-analyzer
-    pkgs.sops
-    pkgs.syncthing
-    pkgs.texinfoInteractive
-    pkgs.tmux
-    pkgs.unixtools.netstat
-    pkgs.libossp_uuid
-    pkgs.virtualenv
-    pkgs.weechat
-    pkgs.wireguard-tools
-    pkgs.wl-clipboard
-    pkgs.yt-dlp
-    pkgs.yubikey-manager
-    pkgs.yubioath-flutter
+    age
+    ansible
+    awscli2
+    azure-cli
+    bandwhich
+    bitwarden-cli
+    chkrootkit
+    cargo
+    cargo-wasi
+    dbus
+    dconf
+    dconf2nix
+    dhall
+    dhall-bash
+    dhall-json
+    dhall-lsp-server
+    dhall-nix
+    dhall-yaml
+    dig
+    ffmpeg
+    flac
+    fontconfig
+    gcc_multi
+    get_iplayer
+    github-cli
+    gnumake
+    go
+    gosec
+    go-jira
+    groovy
+    hub
+    get_iplayer
+    git-crypt
+    jbake
+    jbang
+    jdk17
+    jq
+    krb5
+    krew
+    kubectl
+    kubectl-tree
+    kubectl-view-secret
+    kubebuilder
+    kubernetes-helm
+    kustomize
+    k9s
+    lame
+    lm_sensors
+    maven
+    mediainfo
+    mkvtoolnix-cli
+    mlocate
+    minikube
+    ocm
+    openldap
+    openshift
+    openssl
+    operator-sdk
+    python311Full
+    python311Packages.pip
+    python311Packages.psutil
+    rtorrent
+    rustc
+    rustfmt
+    rust-analyzer
+    sops
+    syncthing
+    texinfoInteractive
+    tmux
+    unixtools.netstat
+    libossp_uuid
+    virtualenv
+    weechat
+    wireguard-tools
+    wl-clipboard
+    yt-dlp
+    yubikey-manager
+    yubioath-flutter
 
     # Fleek Bling
-    pkgs.git
-    pkgs.htop
-    pkgs.github-cli
-    pkgs.glab
-    pkgs.fzf
-    pkgs.ripgrep
-    pkgs.vscode
-    pkgs.lazygit
-    pkgs.jq
-    pkgs.yq-go
-    pkgs.neovim
-    pkgs.neofetch
-    pkgs.btop
-    pkgs.cheat
-    pkgs.just
-    (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
+    git
+    htop
+    github-cli
+    glab
+    fzf
+    ripgrep
+    vscode
+    lazygit
+    jq
+    yq-go
+    neovim
+    neofetch
+    btop
+    cheat
+    just
+    (nerdfonts.override { fonts = [ "FiraCode" ]; })
 
     # OpenStack
-    pkgs.openstackclient
-    pkgs.swiftclient
+    openstackclient
+    swiftclient
   ];
+
   fonts.fontconfig.enable = true;
+
   home.stateVersion =
     "22.11"; # To figure this out (in-case it changes) you can comment out the line and see what version it expected.
+
   programs.home-manager.enable = true;
 }
