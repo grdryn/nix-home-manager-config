@@ -17,9 +17,12 @@
     # sops-nix
     sops-nix.url = "github:Mic92/sops-nix/master";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    # xhmm
+    xhmm.url = "github:schuelermine/xhmm/b0";
   };
 
-  outputs = { self, nixpkgs, home-manager, fleek, sops-nix, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, fleek, sops-nix, xhmm, ... }@inputs: {
 
      packages.x86_64-linux.fleek = fleek.packages.x86_64-linux.default;
 
@@ -31,6 +34,7 @@
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
         modules = [
+          xhmm.homeManagerModules.all
           ./home.nix
           ./path.nix
           ./shell.nix
@@ -40,7 +44,6 @@
           # Host Specific configs
           ./localhost.localdomain/gryan.nix
           ./localhost.localdomain/custom.nix
-          # self-manage fleek
           {
             home.packages = [
               fleek.packages.x86_64-linux.default

@@ -89,7 +89,8 @@
         "fleek": "fleek",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs_2",
-        "sops-nix": "sops-nix"
+        "sops-nix": "sops-nix",
+        "xhmm": "xhmm"
       }
     },
     "sops-nix": {
@@ -111,6 +112,22 @@
         "owner": "Mic92",
         "ref": "master",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "xhmm": {
+      "locked": {
+        "lastModified": 1700046577,
+        "narHash": "sha256-NfSKxftXozjQo+Y0Ujv2sizK+3VF5MxLp6cAaLU1F5M=",
+        "owner": "schuelermine",
+        "repo": "xhmm",
+        "rev": "28e68f0cfb7ce2456465004ff54de4fc9cd718b1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "schuelermine",
+        "ref": "b0",
+        "repo": "xhmm",
         "type": "github"
       }
     }

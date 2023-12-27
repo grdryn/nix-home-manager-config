@@ -2,7 +2,27 @@
 
   imports = [
     inputs.sops-nix.homeManagerModules.sops
+    inputs.xhmm.homeManagerModules.desktop.gnome
   ];
+
+  gnome.extensions = {
+    enable = true;
+    enabledExtensions = with pkgs.gnomeExtensions; [
+      #alt-tab-workspace doesn't exist
+      appindicator
+      clipboard-history
+      containers
+      coverflow-alt-tab
+      #easyScreenCast broken
+      emoji-selector
+      freon
+      gtile
+      impatience
+      openweather
+      removable-drive-menu
+    ];
+    extraExtensions = [];
+  };
 
   sops = {
     age.keyFile = "/var/home/gryan/.config/sops/age/keys.txt";
@@ -380,7 +400,6 @@
 
     "org/gnome/shell" = {
       disable-extension-version-validation = true;
-      disable-user-extensions = true;
     };
 
     "org/gnome/desktop/input-sources" = {
