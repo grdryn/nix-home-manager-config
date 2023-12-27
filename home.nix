@@ -74,6 +74,7 @@ in
     mkvtoolnix-cli
     mlocate
     minikube
+    ncdu
     ocm
     openldap
     openshift
