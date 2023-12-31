@@ -406,6 +406,25 @@
       sources = [ ( lib.hm.gvariant.mkTuple [ "xkb" "us+euro" ]) ];
       xkb-options = [ "caps:ctrl_modifier" ];
     };
+
+    "org/gnome/evolution/calendar" = {
+      editor-show-timezone = true;
+    };
+
+    "org/gnome/evolution/mail" = {
+      composer-reply-start-bottom = true;
+      composer-unicode-smileys = true;
+      mark-seen-timeout = 0;
+      preview-unset-html-colors = true;
+      prompt-on-mark-all-read = false;
+      show-sender-photo = true;
+      search-gravatar-for-photo = true;
+    };
+
+    "org/gnome/evolution/plugin/prefer-plain" = {
+      mode = "normal";
+      show-suppressed = true;
+    };
   };
 
   programs.ssh = {
