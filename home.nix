@@ -81,6 +81,7 @@ in
     openssl
     operator-sdk
     python311Full
+    python311Packages.libselinux
     python311Packages.pip
     python311Packages.psutil
     rtorrent
