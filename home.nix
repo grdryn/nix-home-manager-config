@@ -117,7 +117,9 @@ in
     btop
     cheat
     just
-    (nerdfonts.override { fonts = [ "FiraCode" ]; })
+
+    (nerdfonts.override { fonts = [ "FiraCode" "FiraMono" ]; }) # https://nixos.wiki/wiki/Fonts#Installing_specific_fonts_from_nerdfonts
+    fira-code-symbols # For emacs fira-code mode
 
     # OpenStack
     openstackclient
