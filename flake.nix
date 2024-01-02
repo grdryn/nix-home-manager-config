@@ -30,7 +30,7 @@
 
     homeConfigurations = {
 
-      "gryan@localhost.localdomain" = home-manager.lib.homeManagerConfiguration {
+      "gryan@work.laptop" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
         modules = [
@@ -42,8 +42,8 @@
           ./aliases.nix
           ./programs.nix
           # Host Specific configs
-          ./localhost.localdomain/gryan.nix
-          ./localhost.localdomain/custom.nix
+          ./work.laptop/gryan.nix
+          ./work.laptop/custom.nix
           {
             home.packages = [
               fleek.packages.x86_64-linux.default
