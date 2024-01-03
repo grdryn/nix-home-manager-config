@@ -41,6 +41,7 @@
           ./user.nix
           ./aliases.nix
           ./gnome.nix
+          ./git.nix
           # Host Specific configs
           ./work.laptop/gryan.nix
           ./work.laptop/custom.nix
