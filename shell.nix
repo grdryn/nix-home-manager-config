@@ -25,7 +25,7 @@
   ];
 
   home.shellAliases = {
-    "apply-work.laptop" = "nix run home-manager/master -- -b bak switch --flake .#gryan@work.laptop";
+    "apply-work.laptop" = "pushd ~/.config/home-manager && nix run home-manager/master -- -b bak switch --flake .#gryan@work.laptop && popd";
 
     "j!" = "jbang";
 
