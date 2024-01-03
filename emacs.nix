@@ -1,23 +1,20 @@
-{ config, lib, inputs, pkgs, misc, ... }: {
+{ pkgs, misc, ... }: {
 
-
-
-
-  # Emacs
   programs.emacs = {
     enable = true;
     package = pkgs.emacs29-pgtk;
   };
+
   services.emacs = {
     enable = true;
     package = pkgs.emacs29-pgtk;
+    defaultEditor = true;
+    startWithUserSession = true;
     client = {
       enable = true;
       arguments =  [
         "-c"
       ];
     };
-    defaultEditor = true;
-    startWithUserSession = true;
   };
 }

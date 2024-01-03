@@ -38,7 +38,7 @@
           ./home.nix
           ./path.nix
           ./shell.nix
-          ./user.nix
+          ./emacs.nix
           ./aliases.nix
           ./gnome.nix
           ./git.nix
