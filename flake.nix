@@ -9,9 +9,6 @@
     home-manager.url = "https://flakehub.com/f/nix-community/home-manager/0.1.tar.gz";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # Fleek
-    fleek.url = "https://flakehub.com/f/ublue-os/fleek/*.tar.gz";
-
     # Overlays
 
     # sops-nix
@@ -22,12 +19,9 @@
     xhmm.url = "github:schuelermine/xhmm/b0";
   };
 
-  outputs = { self, nixpkgs, home-manager, fleek, sops-nix, xhmm, ... }@inputs: {
-
-     packages.x86_64-linux.fleek = fleek.packages.x86_64-linux.default;
+  outputs = { self, nixpkgs, home-manager, sops-nix, xhmm, ... }@inputs: {
 
     # Available through 'home-manager --flake .#your-username@your-hostname'
-
     homeConfigurations = {
 
       "gryan@work.laptop" = home-manager.lib.homeManagerConfiguration {
@@ -42,15 +36,6 @@
           ./git.nix
           # Host Specific configs
           ./work.laptop/gryan.nix
-          {
-            home.packages = [
-              fleek.packages.x86_64-linux.default
-            ];
-          }
-          ({
-           nixpkgs.overlays = [];
-          })
-
         ];
       };
 

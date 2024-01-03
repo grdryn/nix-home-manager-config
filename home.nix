@@ -102,14 +102,12 @@ in
     yubikey-manager
     yubioath-flutter
 
-    # Fleek Bling
     git
     htop
     github-cli
     glab
     fzf
     ripgrep
-#    vscode
     lazygit
     jq
     yq-go
