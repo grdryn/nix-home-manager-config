@@ -36,15 +36,12 @@
         modules = [
           xhmm.homeManagerModules.all
           ./home.nix
-          ./path.nix
           ./shell.nix
           ./emacs.nix
-          ./aliases.nix
           ./gnome.nix
           ./git.nix
           # Host Specific configs
           ./work.laptop/gryan.nix
-          ./work.laptop/custom.nix
           {
             home.packages = [
               fleek.packages.x86_64-linux.default

@@ -1,5 +1,10 @@
 { pkgs, misc, ... }: {
 
+  programs.zoxide.enable = true;
+  programs.direnv.enable = true;
+  programs.starship.enable = true;
+  programs.dircolors.enable = true;
+
   home.sessionVariables = {
     GOPATH = "$HOME/go";
     GO111MODULE = "on";
@@ -8,10 +13,29 @@
     PYENV_ROOT = "$HOME/.pyenv";
   };
 
-  programs.zoxide.enable = true;
-  programs.direnv.enable = true;
-  programs.starship.enable = true;
-  programs.dircolors.enable = true;
+  home.sessionPath = [
+    "$HOME/bin"
+    "$HOME/.local/bin"
+    "$GOPATH/bin"
+    "$HOME/.krew/bin"
+    "$HOME/.jbang/bin"
+    "$PYENV_ROOT/bin"
+    "$HOME/.cargo/bin"
+
+  ];
+
+  home.shellAliases = {
+    "apply-work.laptop" = "nix run home-manager/master -- -b bak switch --flake .#gryan@work.laptop";
+
+    "j!" = "jbang";
+
+    cd = "z";
+
+    cat = "bat";
+
+    # bat --plain for unformatted cat
+    catp = "bat -P";
+  };
 
   programs.eza = {
     enable = true;
