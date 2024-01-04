@@ -22,7 +22,105 @@
 
   services.emacs = {
     enable = true;
-    package = pkgs.emacs29-pgtk;
+    package = with pkgs; (
+      (emacsPackagesFor emacs29-pgtk).emacsWithPackages (
+        epkgs: with epkgs; [
+          adoc-mode
+          ag
+          ansible-vault
+          anzu
+          archive-rpm
+          beacon
+          browse-kill-ring
+          cargo
+          company-anaconda
+          company-ansible
+          company-go
+          #          company-lsp
+          consult
+          counsel
+          crux
+          csv-mode
+          cython-mode
+          dap-mode
+          dhall-mode
+          diff-hl
+          diminish
+          discover-my-major
+          dockerfile-mode
+          easy-kill
+          editorconfig
+          elisp-slime-nav
+          emacsql-sqlite
+          exec-path-from-shell
+          expand-region
+          fira-code-mode
+          flycheck-rust
+          forge
+          geiser
+          gist
+          git-modes
+          git-timemachine
+          gnu-elpa-keyring-update
+          go-projectile
+          go-snippets
+          golint
+          gotest
+          groovy-mode
+          guru-mode
+          haskell-mode
+          helm-ag
+          helm-descbinds
+          helm-lsp
+          helm-projectile
+          helm-rg
+          hl-todo
+          imenu-anywhere
+          inf-ruby
+          js2-mode
+          json-mode
+          keycast
+          lsp-java
+          lsp-metals
+          lsp-python-ms
+          lsp-ui
+          move-text
+          nix-mode
+          nlinum
+          operate-on-number
+          orderless
+          pcap-mode
+          pinentry
+          poly-ansible
+          poly-erb
+          racket-mode
+          rainbow-delimiters
+          rainbow-mode
+          ron-mode
+          rust-mode
+          scala-mode
+          scss-mode
+          smartparens
+          smartrep
+          super-save
+          tide
+          transient
+          tree-sitter
+          tree-sitter-langs
+          tsc
+          typescript-mode
+          undo-tree
+          vertico
+          volatile-highlights
+          vterm
+          web-mode
+          which-key
+          yari
+          zenburn-theme
+          zop-to-char
+        ]
+      )
+    );
     defaultEditor = true;
     startWithUserSession = true;
     client = {
