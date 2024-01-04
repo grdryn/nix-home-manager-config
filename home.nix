@@ -28,6 +28,8 @@ in
     };
   };
 
+  services.syncthing.enable = true;
+
   # packages are just installed (no configuration applied)
   # programs are installed and configuration applied to dotfiles
   home.packages = with pkgs; [
