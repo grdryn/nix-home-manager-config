@@ -1,0 +1,18 @@
+* Nix home-manager configuration
+
+nix home-manager configs
+
+**  Reference
+
+- [[https://nix-community.github.io/home-manager/][home-manager]]
+- [[https://nix-community.github.io/home-manager/options.html][home-manager options]]
+
+** Usage
+
+Aliases were added to the config to make it easier to use. To use
+them, run the following commands:
+
+#+begin_src bash
+  # To apply the configuration
+  apply-$(hostname)
+#+end_src
