@@ -34,6 +34,18 @@
   };
 
   programs.git = {
+    enable = true;
+
+    userName = "Gerard Ryan";
+    userEmail = "git@grdryn.xyz";
+
+    signing = {
+      key = "~/.ssh/id_ed25519";
+      signByDefault = builtins.stringLength "~/.ssh/id_ed25519" > 0;
+    };
+
+    lfs.enable = true;
+
     includes = [
       { path = config.sops.secrets.github_gitconfig.path; }
     ];
@@ -51,6 +63,8 @@
       ".project"
       ".settings"
       "__pycache__"
+      ".direnv"
+      "result"
     ];
 
     aliases = {
@@ -182,6 +196,9 @@
     };
 
     extraConfig = {
+      feature.manyFiles = true;
+      gpg.format = "ssh";
+
       core = {
         whitespace = "trailing-space,space-before-tab";
         quotepath = false;
