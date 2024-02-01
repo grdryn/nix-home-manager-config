@@ -20,7 +20,7 @@
   ];
 
   sops = {
-    age.keyFile = "/var/home/gryan/.config/sops/age/keys.txt";
+    age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
     # It's also possible to use a ssh key, but only when it has no password:
     #age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
     defaultSopsFile = ./secrets/secrets.yaml;
