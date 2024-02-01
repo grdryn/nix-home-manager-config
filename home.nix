@@ -62,15 +62,13 @@ in
     fontconfig
     gcc_multi
     get_iplayer
+    git-crypt
     github-cli
     gnumake
     go
     gosec
-    go-jira
     groovy
     hub
-    get_iplayer
-    git-crypt
     jbake
     jbang
     jdk17
