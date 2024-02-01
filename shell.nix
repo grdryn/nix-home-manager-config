@@ -124,6 +124,10 @@
     controlMaster = "auto";
     controlPersist = "yes";
 
+    extraConfig = ''
+      Port 22
+    '';
+
     matchBlocks = {
       github.extraOptions.UpdateHostKeys = "yes";
     };
