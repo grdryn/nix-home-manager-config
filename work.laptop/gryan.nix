@@ -18,8 +18,4 @@
     home.username = "gryan";
     home.homeDirectory = "/var/home/gryan";
 
-    home.packages = with pkgs; [
-      go-jira
-    ];
-
 }
