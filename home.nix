@@ -104,6 +104,7 @@ in
     rustfmt
     rust-analyzer
     sops
+    sqlite
     syncthing
     texinfoInteractive
     tmux
