@@ -13,11 +13,10 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-{ pkgs, misc, ... }: {
+{ pkgs, lib, misc, ... }: {
 
   programs.zoxide.enable = true;
   programs.direnv.enable = true;
-  programs.starship.enable = true;
   programs.dircolors.enable = true;
 
   home.sessionVariables = {
@@ -50,6 +49,32 @@
 
     # bat --plain for unformatted cat
     catp = "bat -P";
+  };
+
+  programs.starship = {
+    enable = true;
+    settings = {
+      add_newline = false;
+      # format = lib.concatStrings [
+      #   "$directory"
+      #   "$line_break"
+      #   "$package"
+      #   "$line_break"
+      #   "$character"
+      # ];
+      scan_timeout = 10;
+      character = {
+        success_symbol = "[➜](bold green)";
+        error_symbol = "[➜](bold red)";
+      };
+      directory = {
+        truncation_length = 8;
+        truncation_symbol = "…/";
+      };
+      kubernetes = {
+        disabled = false;
+      };
+    };
   };
 
   programs.eza = {
