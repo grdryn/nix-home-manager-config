@@ -66,6 +66,7 @@ in
     github-cli
     gnumake
     go
+    gopls
     gosec
     groovy
     hub
