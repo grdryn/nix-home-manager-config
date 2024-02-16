@@ -107,6 +107,7 @@ in
     sops
     sqlite
     syncthing
+    tektoncd-cli
     texinfoInteractive
     tmux
     unixtools.netstat
