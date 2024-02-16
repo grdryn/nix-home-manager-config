@@ -51,7 +51,7 @@
           easy-kill
           editorconfig
           elisp-slime-nav
-          emacsql-sqlite
+          emacsql
           exec-path-from-shell
           expand-region
           fira-code-mode
