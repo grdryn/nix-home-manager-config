@@ -45,6 +45,7 @@ in
     bandwhich
     bitwarden-cli
     chkrootkit
+    chrysalis
     cargo
     cargo-wasi
     dbus
