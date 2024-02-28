@@ -104,6 +104,7 @@ in
     rustc
     rustfmt
     rust-analyzer
+    shellcheck
     sops
     sqlite
     syncthing
