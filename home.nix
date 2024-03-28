@@ -51,6 +51,7 @@ in
     dbus
     dconf
     dconf2nix
+    delve
     dhall
     dhall-bash
     dhall-json
@@ -62,6 +63,7 @@ in
     flac
     fontconfig
     gcc_multi
+    gdlv
     get_iplayer
     git-crypt
     github-cli
