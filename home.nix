@@ -45,7 +45,7 @@ in
     bandwhich
     bitwarden-cli
     chkrootkit
-    chrysalis
+    #chrysalis
     cargo
     cargo-wasi
     dbus
@@ -62,7 +62,7 @@ in
     ffmpeg
     flac
     fontconfig
-    gcc_multi
+    #gcc_multi
     gdlv
     get_iplayer
     git-crypt
