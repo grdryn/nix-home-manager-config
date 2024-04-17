@@ -28,7 +28,7 @@
       containers
       coverflow-alt-tab
       #easyScreenCast broken
-      emoji-selector
+      #emoji-selector
       freon
       gtile
       impatience
