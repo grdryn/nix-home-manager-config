@@ -62,7 +62,7 @@ in
     ffmpeg
     flac
     fontconfig
-    #gcc_multi
+    gcc
     gdlv
     get_iplayer
     git-crypt
