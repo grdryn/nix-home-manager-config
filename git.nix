@@ -196,7 +196,7 @@
     };
 
     extraConfig = {
-      feature.manyFiles = true;
+      feature.manyFiles = false; # needs to be false for libgit2
       gpg.format = "ssh";
 
       core = {
