@@ -132,7 +132,6 @@
       fi
 
       . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-      . "$HOME/applications/maven-mvnd/bin/mvnd-bash-completion.bash"
 
       bind -x '"\C-p": __atuin_history'
 
