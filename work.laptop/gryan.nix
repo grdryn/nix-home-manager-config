@@ -18,4 +18,13 @@
     home.username = "gryan";
     home.homeDirectory = "/var/home/gryan";
 
+    dconf.settings = {
+      # Somehow in UTM/QEMU, this is upside-down
+      "org/gnome/desktop/peripherals/mouse" = {
+        natural-scroll = true;
+      };
+      "org/gnome/desktop/peripherals/touchpad" = {
+        natural-scroll = true;
+      };
+    };
 }
