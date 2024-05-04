@@ -38,6 +38,23 @@
     extraExtensions = [];
   };
 
+  programs.gnome-terminal = {
+    enable = true;
+    profile = {
+      b1dcc9dd-5262-4d8d-a863-c897e6d979b9 = {
+        customCommand = "/bin/bash";
+        default = false;
+        visibleName = "Bash";
+        transparencyPercent = 0;
+      };
+      d222592d-cd9a-4eec-9f30-872afac9f473 = {
+        customCommand = "/var/home/gryan/.nix-profile/bin/fish";
+        default = true;
+        visibleName = "Fish";
+        transparencyPercent = 25;
+      };
+    };
+  };
 
   dconf.settings = {
     "org/gnome/desktop/interface" = {

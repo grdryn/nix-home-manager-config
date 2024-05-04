@@ -60,6 +60,7 @@ in
     dhall-yaml
     dig
     ffmpeg
+    fish
     flac
     fontconfig
     gcc

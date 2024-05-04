@@ -140,6 +140,11 @@
     '';
   };
 
+  programs.fish = {
+    enable = true;
+    prompt = "echo \>";
+  };
+
   programs.ssh = {
     enable = true;
     # Drop-in includes may be unmanaged or encrypted
