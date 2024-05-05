@@ -52,6 +52,7 @@
           editorconfig
           elisp-slime-nav
           emacsql
+          epl
           exec-path-from-shell
           expand-region
           fira-code-mode
@@ -82,7 +83,7 @@
           keycast
           lsp-java
           lsp-metals
-          lsp-python-ms
+          lsp-pyright
           lsp-ui
           move-text
           nix-mode
