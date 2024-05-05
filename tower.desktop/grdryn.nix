@@ -18,4 +18,5 @@
     home.username = "grdryn";
     home.homeDirectory = "/var/home/grdryn";
 
+    targets.genericLinux.enable = true;
 }

@@ -18,6 +18,8 @@
     home.username = "gryan";
     home.homeDirectory = "/var/home/gryan";
 
+    targets.genericLinux.enable = true;
+
     dconf.settings = {
       # Somehow in UTM/QEMU, this is upside-down
       "org/gnome/desktop/peripherals/mouse" = {
