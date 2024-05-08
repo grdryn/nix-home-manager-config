@@ -20,6 +20,44 @@
 
     targets.genericLinux.enable = true;
 
+    accounts.email.accounts = {
+      "work" = {
+        address = "ger@redhat.com";
+        realName = "Gerard Ryan";
+        userName = "gryan@redhat.com";
+
+        aliases = [
+          "gryan@redhat.com"
+          "grdryn@redhat.com"
+        ];
+        flavor = "gmail.com";
+        primary = true;
+
+        thunderbird = {
+          enable = true;
+          settings =
+            id: {
+              "mail.identity.id_${id}.protectSubject" = false;
+              "mail.server.server_${id}.authMethod" = 10;
+              "mail.smtpserver.smtp_${id}.authMethod" = 10;
+            };
+        };
+      };
+    };
+
+    programs.thunderbird = {
+      enable = true;
+      profiles = {
+        work = {
+          isDefault = true;
+        };
+      };
+    };
+
+    home.packages = with pkgs; [
+      thunderbird
+    ];
+
     dconf.settings = {
       # Somehow in UTM/QEMU, this is upside-down
       "org/gnome/desktop/peripherals/mouse" = {
