@@ -89,6 +89,7 @@ in
     k9s
     lame
     lm_sensors
+    macchina
     maven
     mediainfo
     mkvtoolnix-cli
@@ -134,8 +135,6 @@ in
     lazygit
     jq
     yq-go
-    neovim
-    neofetch
     btop
     cheat
     just
