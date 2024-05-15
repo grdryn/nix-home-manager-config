@@ -38,6 +38,7 @@
           settings =
             id: {
               "mail.identity.id_${id}.protectSubject" = false;
+              "mail.identity.id_${id}.compose_html" = false;
               "mail.server.server_${id}.authMethod" = 10;
               "mail.smtpserver.smtp_${id}.authMethod" = 10;
             };
