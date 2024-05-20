@@ -39,6 +39,7 @@
             id: {
               "mail.identity.id_${id}.protectSubject" = false;
               "mail.identity.id_${id}.compose_html" = false;
+              "mail.identity.id_${id}.reply_on_top" = 0;
               "mail.server.server_${id}.authMethod" = 10;
               "mail.smtpserver.smtp_${id}.authMethod" = 10;
             };
@@ -52,6 +53,12 @@
         work = {
           isDefault = true;
         };
+      };
+      settings = {
+        "mail.default_send_format" = 1;
+        "network.cookie.cookieBehavior" = 2;
+        "pref.privacy.disable_button.view_passwords" = false;
+        "privacy.donottrackheader.enabled" = true;
       };
     };
 
