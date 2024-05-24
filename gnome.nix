@@ -48,7 +48,7 @@
         transparencyPercent = 0;
       };
       d222592d-cd9a-4eec-9f30-872afac9f473 = {
-        customCommand = "/var/home/gryan/.nix-profile/bin/fish";
+        customCommand = "/usr/bin/env fish";
         default = true;
         visibleName = "Fish";
         transparencyPercent = 25;
