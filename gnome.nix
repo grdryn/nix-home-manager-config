@@ -95,6 +95,7 @@
 
     "org/gnome/mutter" = {
       workspaces-only-on-primary = false;
+      experimental-features = ["scale-monitor-framebuffer"];
     };
 
     "org/gnome/shell/overrides" = {
