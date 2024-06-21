@@ -79,7 +79,8 @@
 
   programs.eza = {
     enable = true;
-    enableAliases = true;
+    enableBashIntegration = true;
+    enableFishIntegration = true;
     extraOptions = [
       "--group-directories-first"
       "--header"
