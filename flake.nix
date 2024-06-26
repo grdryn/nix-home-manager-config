@@ -69,7 +69,7 @@
         ];
       };
 
-      "grdryn@tower.desktop" = home-manager.lib.homeManagerConfiguration {
+      "grdryn@aorus-desktop" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
         modules = [
