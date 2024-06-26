@@ -15,7 +15,6 @@
  */
 { pkgs, lib, misc, ... }: {
 
-  programs.zoxide.enable = true;
   programs.direnv.enable = true;
   programs.dircolors.enable = true;
 
@@ -43,12 +42,15 @@
 
     "j!" = "jbang";
 
-    cd = "z";
-
     cat = "bat";
 
     # bat --plain for unformatted cat
     catp = "bat -P";
+  };
+
+  programs.zoxide = {
+    enable = true;
+    options = [ "--cmd cd" ];
   };
 
   programs.starship = {
