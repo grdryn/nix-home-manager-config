@@ -56,6 +56,7 @@
       };
       settings = {
         "mail.default_send_format" = 1;
+        "mail.uidensity" = 2;
         "network.cookie.cookieBehavior" = 2;
         "pref.privacy.disable_button.view_passwords" = false;
         "privacy.donottrackheader.enabled" = true;
