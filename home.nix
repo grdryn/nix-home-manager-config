@@ -101,10 +101,10 @@ in
     openshift
     openssl
     operator-sdk
-    python311Full
-    python311Packages.libselinux
-    python311Packages.pip
-    python311Packages.psutil
+    python312Full
+    python312Packages.libselinux
+    python312Packages.pip
+    python312Packages.psutil
     rtorrent
     rustc
     rustfmt
