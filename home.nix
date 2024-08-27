@@ -72,6 +72,7 @@ in
     go
     gopls
     gosec
+    govulncheck
     groovy
     hub
     jbake
