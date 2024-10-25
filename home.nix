@@ -146,6 +146,11 @@ in
     # OpenStack
     openstackclient
     swiftclient
+
+    # hack
+    metasploit
+    armitage
+    sqlmap
   ];
 
   fonts.fontconfig.enable = true;
