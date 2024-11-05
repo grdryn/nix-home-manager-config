@@ -60,6 +60,11 @@
         "network.cookie.cookieBehavior" = 2;
         "pref.privacy.disable_button.view_passwords" = false;
         "privacy.donottrackheader.enabled" = true;
+
+        "mail.biff.play_sound" = false;
+        "mail.biff.show_alert" = false;
+        "mail.biff.use_system_alert" = false;
+
       };
     };
 
