@@ -32,7 +32,7 @@
       freon
       gtile
       impatience
-      openweather
+      #openweather doesn't exist anymore
       removable-drive-menu
     ];
     extraExtensions = [];
