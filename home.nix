@@ -115,6 +115,7 @@ in
     shellcheck
     sops
     sqlite
+    strace
     syncthing
     tektoncd-cli
     texinfoInteractive
