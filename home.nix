@@ -37,6 +37,7 @@ in
     aws-bitwarden
 
     # from nixpkgs
+    act
     age
     ansible
     awscli2
@@ -102,6 +103,7 @@ in
     openshift
     openssl
     operator-sdk
+    prometheus.cli # promtool, see https://discourse.nixos.org/t/cannot-run-promtool-even-with-prometheus-installed-nixos-minimal/52064/3
     python312Full
     python312Packages.libselinux
     python312Packages.pip
