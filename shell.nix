@@ -75,6 +75,7 @@
       };
       kubernetes = {
         disabled = false;
+        format = "[$cluster :: $namespace]($style) in ";
       };
     };
   };
