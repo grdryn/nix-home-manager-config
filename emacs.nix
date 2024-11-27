@@ -51,6 +51,7 @@
           exec-path-from-shell
           expand-region
           fira-code-mode
+          flycheck-golangci-lint
           flycheck-rust
           forge
           geiser

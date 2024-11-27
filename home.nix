@@ -71,6 +71,7 @@ in
     github-cli
     gnumake
     go
+    golangci-lint
     gopls
     gosec
     govulncheck
