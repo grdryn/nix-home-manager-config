@@ -61,6 +61,10 @@
         "pref.privacy.disable_button.view_passwords" = false;
         "privacy.donottrackheader.enabled" = true;
 
+        "extensions.ui.locale.hidden" = false;
+        "intl.locale.requested" = "en-GB,en-US";
+        "intl.regional_prefs.use_os_locales" = false;
+
         "mail.biff.play_sound" = false;
         "mail.biff.show_alert" = false;
         "mail.biff.use_system_alert" = false;
