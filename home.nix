@@ -45,7 +45,6 @@ in
     backblaze-b2
     bandwhich
     bitwarden-cli
-    chkrootkit
     #chrysalis
     cargo
     cargo-wasi
@@ -91,23 +90,19 @@ in
     kustomize
     k9s
     lame
-    lm_sensors
     macchina
     maven
     mediainfo
     mkvtoolnix-cli
-    mlocate
     minikube
     ncdu
     ocm
-    openldap
     openshift
     openssl
     operator-sdk
     pipenv
     prometheus.cli # promtool, see https://discourse.nixos.org/t/cannot-run-promtool-even-with-prometheus-installed-nixos-minimal/52064/3
     python312Full
-    python312Packages.libselinux
     python312Packages.pip
     python312Packages.psutil
     rtorrent
@@ -117,7 +112,6 @@ in
     shellcheck
     sops
     sqlite
-    strace
     syncthing
     tektoncd-cli
     texinfoInteractive
@@ -130,7 +124,6 @@ in
     wl-clipboard
     yt-dlp
     yubikey-manager
-    yubioath-flutter
 
     git
     htop

@@ -18,8 +18,6 @@
     home.username = "gryan";
     home.homeDirectory = "/var/home/gryan";
 
-    targets.genericLinux.enable = true;
-
     accounts.email.accounts = {
       "work" = {
         address = "ger@redhat.com";

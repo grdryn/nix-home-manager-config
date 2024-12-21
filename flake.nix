@@ -45,6 +45,7 @@
         modules = [
           xhmm.homeManagerModules.all
           ./home.nix
+          ./linux.nix
           ./shell.nix
           ./emacs.nix
           ./gnome.nix
@@ -75,6 +76,7 @@
         modules = [
           xhmm.homeManagerModules.all
           ./home.nix
+          ./linux.nix
           ./shell.nix
           ./emacs.nix
           ./gnome.nix
