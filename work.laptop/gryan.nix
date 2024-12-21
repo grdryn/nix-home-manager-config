@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-{ pkgs, misc, ... }: {
+{ pkgs, lib, misc, ... }: {
 
     home.username = "gryan";
     home.homeDirectory = "/var/home/gryan";
@@ -45,7 +45,7 @@
       };
     };
 
-    programs.thunderbird = {
+    programs.thunderbird = lib.mkIf pkgs.hostPlatform.isLinux {
       enable = true;
       profiles = {
         work = {
@@ -70,8 +70,8 @@
       };
     };
 
-    home.packages = with pkgs; [
-      thunderbird
+    home.packages = lib.mkIf pkgs.hostPlatform.isLinux [
+      pkgs.thunderbird
     ];
 
     dconf.settings = {
