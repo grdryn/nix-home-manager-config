@@ -138,7 +138,8 @@ in
     cheat
     just
 
-    (nerdfonts.override { fonts = [ "FiraCode" "FiraMono" ]; }) # https://nixos.wiki/wiki/Fonts#Installing_specific_fonts_from_nerdfonts
+    nerd-fonts.fira-code
+    nerd-fonts.fira-mono
     fira-code-symbols # For emacs fira-code mode
 
     # OpenStack
