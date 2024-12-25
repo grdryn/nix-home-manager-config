@@ -16,7 +16,10 @@
 { pkgs, lib, misc, ... }: {
 
     home.username = "gryan";
-    home.homeDirectory = "/var/home/gryan";
+    home.homeDirectory =
+      if pkgs.hostPlatform.isDarwin
+      then "/Users/gryan"
+      else "/var/home/gryan";
 
     accounts.email.accounts = {
       "work" = {
