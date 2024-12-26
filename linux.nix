@@ -68,4 +68,9 @@ in
     strace
     yubioath-flutter
   ];
+
+  programs.fish = {
+    prompt = "echo \>";
+  };
+
 }

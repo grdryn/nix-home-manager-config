@@ -146,7 +146,6 @@
 
   programs.fish = {
     enable = true;
-    prompt = "echo \>";
   };
 
   programs.ssh = {
