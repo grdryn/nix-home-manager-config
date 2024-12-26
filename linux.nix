@@ -13,10 +13,39 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-{ config, pkgs, misc, ... }:
+{ config, inputs, pkgs, misc, ... }:
+
+let
+  aws-bitwarden = pkgs.callPackage ./scripts/aws-bitwarden {};
+in
 {
 
   targets.genericLinux.enable = true;
+
+
+  imports = [
+    inputs.sops-nix.homeManagerModules.sops
+  ];
+
+  sops = {
+    age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
+    # It's also possible to use a ssh key, but only when it has no password:
+    #age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+    defaultSopsFile = ./secrets/secrets.yaml;
+    secrets = {
+      github_gitconfig = {
+        sopsFile = ./secrets/github.gitconfig;
+        format = "binary";
+        path = "${config.home.homeDirectory}/.config/git/config.d/github.gitconfig";
+      };
+    };
+  };
+
+  programs.git = {
+    includes = [
+      { path = config.sops.secrets.github_gitconfig.path; }
+    ];
+  };
 
   nixpkgs = {
     # Configure your nixpkgs instance
@@ -27,6 +56,10 @@
   };
 
   home.packages = with pkgs; [
+    # custom
+    aws-bitwarden
+
+    bitwarden-cli
     chkrootkit
     lm_sensors
     mlocate

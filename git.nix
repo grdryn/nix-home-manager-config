@@ -15,24 +15,6 @@
  */
 { config, inputs, pkgs, misc, ... }: {
 
-  imports = [
-    inputs.sops-nix.homeManagerModules.sops
-  ];
-
-  sops = {
-    age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
-    # It's also possible to use a ssh key, but only when it has no password:
-    #age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-    defaultSopsFile = ./secrets/secrets.yaml;
-    secrets = {
-      github_gitconfig = {
-        sopsFile = ./secrets/github.gitconfig;
-        format = "binary";
-        path = "${config.home.homeDirectory}/.config/git/config.d/github.gitconfig";
-      };
-    };
-  };
-
   programs.git = {
     enable = true;
 
@@ -45,10 +27,6 @@
     };
 
     lfs.enable = true;
-
-    includes = [
-      { path = config.sops.secrets.github_gitconfig.path; }
-    ];
 
     ignores = [
       "*~"

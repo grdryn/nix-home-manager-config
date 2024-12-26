@@ -14,10 +14,6 @@
  *  limitations under the License.
  */
 { config, pkgs, misc, ... }:
-
-let
-  aws-bitwarden = pkgs.callPackage ./scripts/aws-bitwarden {};
-in
 {
 
   nixpkgs = {
@@ -33,9 +29,6 @@ in
   # packages are just installed (no configuration applied)
   # programs are installed and configuration applied to dotfiles
   home.packages = with pkgs; [
-    # custom
-    aws-bitwarden
-
     # from nixpkgs
     act
     age
@@ -44,7 +37,6 @@ in
     #azure-cli
     backblaze-b2
     bandwhich
-    bitwarden-cli
     #chrysalis
     cargo
     cargo-wasi
