@@ -81,6 +81,7 @@
           lsp-metals
           lsp-pyright
           lsp-ui
+          magit-delta
           move-text
           nix-mode
           nlinum

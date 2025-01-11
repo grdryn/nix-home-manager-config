@@ -43,6 +43,7 @@
     dbus
     dconf
     dconf2nix
+    delta
     delve
     dhall
     dhall-bash
@@ -59,6 +60,7 @@
     gdlv
     get_iplayer
     git-crypt
+    git-extras
     github-cli
     gnumake
     go
