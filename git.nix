@@ -178,8 +178,19 @@
       gpg.format = "ssh";
 
       core = {
+        pager = "delta";
         whitespace = "trailing-space,space-before-tab";
         quotepath = false;
+      };
+
+      interactive = {
+        diffFilter = "delta --color-only";
+      };
+
+      delta = {
+        line-numbers = true;
+        navigate = true;    # use n and N to move between diff sections
+        side-by-side = true;
       };
 
       color = {
@@ -199,6 +210,7 @@
       };
 
       diff = {
+        colorMoved = "default";
         tool = "emerge";
       };
 
@@ -207,6 +219,7 @@
       };
 
       merge = {
+        conflictstyle = "diff3";
         tool = "emerge";
       };
 
