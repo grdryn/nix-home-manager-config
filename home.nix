@@ -90,6 +90,7 @@
     mkvtoolnix-cli
     minikube
     ncdu
+    nodejs_22
     ocm
     openshift
     openssl
