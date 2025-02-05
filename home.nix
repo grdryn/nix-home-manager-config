@@ -106,6 +106,7 @@
     shellcheck
     sops
     sqlite
+    syft
     syncthing
     tektoncd-cli
     texinfoInteractive
