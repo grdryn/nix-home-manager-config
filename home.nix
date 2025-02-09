@@ -87,6 +87,7 @@
     macchina
     maven
     mediainfo
+    mergiraf
     mkvtoolnix-cli
     minikube
     ncdu
