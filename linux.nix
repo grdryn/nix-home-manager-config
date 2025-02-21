@@ -64,7 +64,6 @@ in
     lm_sensors
     mlocate
     openldap # TODO: clashes with zulu jdk17 on macos
-    python312Packages.libselinux
     strace
     yubioath-flutter
   ];
