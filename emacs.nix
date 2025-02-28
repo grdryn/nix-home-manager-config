@@ -13,12 +13,24 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-{ pkgs, misc, ... }: {
-
+{ pkgs, misc, ... }:
+{
   services.emacs = {
     enable = true;
+    defaultEditor = true;
+    startWithUserSession = true;
+    client = {
+      enable = true;
+      arguments =  [
+        "-c"
+      ];
+    };
+  };
+
+  programs.emacs = {
+    enable = true;
     package = with pkgs; (
-      (emacsPackagesFor emacs29-pgtk).emacsWithPackages (
+      (emacsPackagesFor emacs30-pgtk).emacsWithPackages (
         epkgs: with epkgs; [
           adoc-mode
           ag
@@ -31,7 +43,6 @@
           company-anaconda
           company-ansible
           company-go
-          #          company-lsp
           consult
           counsel
           crux
@@ -119,13 +130,5 @@
         ]
       )
     );
-    defaultEditor = true;
-    startWithUserSession = true;
-    client = {
-      enable = true;
-      arguments =  [
-        "-c"
-      ];
-    };
   };
 }
