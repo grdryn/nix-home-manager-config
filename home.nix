@@ -112,7 +112,6 @@
     syncthing
     tektoncd-cli
     texinfoInteractive
-    tmux
     unixtools.netstat
     libossp_uuid
     virtualenv
@@ -121,6 +120,7 @@
     wl-clipboard
     yt-dlp
     yubikey-manager
+    zellij
 
     git
     htop
