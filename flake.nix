@@ -50,6 +50,7 @@
           ./emacs.nix
           ./gnome.nix
           ./git.nix
+          ./myrepos.nix
           # Host Specific configs
           ./work.laptop/gryan.nix
         ];
@@ -65,6 +66,7 @@
           ./emacs.nix
           ./gnome.nix
           ./git.nix
+          ./myrepos.nix
           # Host Specific configs
           ./work.laptop/gryan.nix
         ];
@@ -81,6 +83,7 @@
           ./emacs.nix
           ./gnome.nix
           ./git.nix
+          ./myrepos.nix
           # Host Specific configs
           ./tower.desktop/grdryn.nix
         ];
