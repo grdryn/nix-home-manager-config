@@ -188,6 +188,7 @@
 
   programs.zellij = {
     enable = true;
+    enableBashIntegration = false;
     enableFishIntegration = false;
     settings = {
       default_shell = "fish";
