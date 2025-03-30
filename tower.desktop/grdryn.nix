@@ -13,10 +13,34 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-{ pkgs, misc, ... }: {
+{ config, pkgs, misc, ... }: {
 
     home.username = "grdryn";
     home.homeDirectory = "/var/home/grdryn";
 
     targets.genericLinux.enable = true;
+
+    services.mpd = {
+      enable = true;
+      network.listenAddress = "aorus";
+    };
+
+    services.mpd-mpris = {
+      enable = true;
+    };
+
+    services.mpdscribble = {
+      enable = true;
+      endpoints = {
+        "last.fm" = {
+          username = "grdryn";
+          passwordFile = "${config.home.homeDirectory}/.config/sops-nix/secrets/lastfm_password";
+        };
+        "libre.fm" = {
+          username = "grdryn";
+          passwordFile = "${config.home.homeDirectory}/.config/sops-nix/secrets/librefm_password";
+        };
+      };
+      journalInterval = 60;
+    };
 }

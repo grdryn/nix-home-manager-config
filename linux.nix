@@ -22,6 +22,7 @@ in
 
   targets.genericLinux.enable = true;
 
+  xdg.userDirs.enable = true;
 
   imports = [
     inputs.sops-nix.homeManagerModules.sops
@@ -37,6 +38,14 @@ in
         sopsFile = ./secrets/github.gitconfig;
         format = "binary";
         path = "${config.home.homeDirectory}/.config/git/config.d/github.gitconfig";
+      };
+      lastfm_password = {
+        format = "yaml";
+        sopsFile = ./secrets/mpdscribble.yaml;
+      };
+      librefm_password = {
+        format = "yaml";
+        sopsFile = ./secrets/mpdscribble.yaml;
       };
     };
   };
