@@ -40,6 +40,7 @@
     #chrysalis
     cargo
     cargo-wasi
+    cosign
     dbus
     dconf
     dconf2nix
@@ -96,6 +97,7 @@
     openshift
     openssl
     operator-sdk
+    oras
     pipenv
     prometheus.cli # promtool, see https://discourse.nixos.org/t/cannot-run-promtool-even-with-prometheus-installed-nixos-minimal/52064/3
     python312Full
