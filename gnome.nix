@@ -26,7 +26,7 @@
       appindicator
       clipboard-history
       containers
-      coverflow-alt-tab
+      #coverflow-alt-tab breaks alt-tab altogether in F42
       #easyScreenCast broken
       #emoji-selector
       freon
