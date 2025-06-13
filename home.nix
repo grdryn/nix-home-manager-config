@@ -41,6 +41,7 @@
     cargo
     cargo-wasi
     cosign
+    crc
     dbus
     dconf
     dconf2nix
@@ -85,6 +86,7 @@
     kustomize
     k9s
     lame
+    libunwind
     macchina
     maven
     mediainfo
