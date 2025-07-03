@@ -75,6 +75,7 @@
     jbake
     jbang
     jdk17
+    jira-cli-go
     jq
     krb5
     krew
