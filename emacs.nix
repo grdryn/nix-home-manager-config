@@ -77,7 +77,7 @@
           groovy-mode
           guru-mode
           haskell-mode
-          helm-ag
+          #helm-ag
           helm-descbinds
           helm-lsp
           helm-projectile
@@ -102,6 +102,7 @@
           pinentry
           poly-ansible
           poly-erb
+          projectile-ripgrep
           racket-mode
           rainbow-delimiters
           rainbow-mode
