@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-{ config, pkgs, misc, ... }:
+{ config, pkgs, misc, lib, ... }:
 {
 
   nixpkgs = {
@@ -25,6 +25,10 @@
   };
 
   services.syncthing.enable = true;
+
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "claude-code"
+  ];
 
   # packages are just installed (no configuration applied)
   # programs are installed and configuration applied to dotfiles
@@ -40,6 +44,7 @@
     #chrysalis
     cargo
     cargo-wasi
+    claude-code
     cosign
     crc
     dbus
@@ -68,6 +73,7 @@
     gnumake
     go
     golangci-lint
+    google-cloud-sdk
     gopls
     gosec
     govulncheck

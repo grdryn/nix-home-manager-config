@@ -24,6 +24,9 @@
     DOCKER_HOST = "unix:///run/user/$UID/podman/podman.sock";
     SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh";
     PYENV_ROOT = "$HOME/.pyenv";
+    CLAUDE_CODE_USE_VERTEX = "1";
+    CLOUD_ML_REGION = "us-east5";
+    ANTHROPIC_VERTEX_PROJECT_ID = "itpc-gcp-ai-eng-claude";
   };
 
   home.sessionPath = [
