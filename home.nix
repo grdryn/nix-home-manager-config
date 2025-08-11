@@ -66,6 +66,7 @@
     gcc
     gdlv
     geckodriver
+    gemini-cli
     get_iplayer
     git-crypt
     git-extras
