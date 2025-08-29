@@ -70,6 +70,7 @@
     get_iplayer
     git-crypt
     git-extras
+    git-sim
     github-cli
     gnumake
     go
