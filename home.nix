@@ -129,6 +129,7 @@
     texinfoInteractive
     unixtools.netstat
     libossp_uuid
+    uv
     virtualenv
     weechat
     wireguard-tools
