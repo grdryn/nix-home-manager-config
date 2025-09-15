@@ -111,6 +111,7 @@
     operator-sdk
     oras
     pipenv
+    podlet
     poetry
     prometheus.cli # promtool, see https://discourse.nixos.org/t/cannot-run-promtool-even-with-prometheus-installed-nixos-minimal/52064/3
     python312Full
