@@ -155,15 +155,23 @@
     enable = true;
     # Drop-in includes may be unmanaged or encrypted
     includes = [".config.d/*"];
-    controlMaster = "auto";
-    controlPersist = "yes";
-
-    extraConfig = ''
-      Port 22
-    '';
+    enableDefaultConfig = false;
 
     matchBlocks = {
       github.extraOptions.UpdateHostKeys = "yes";
+      "*" = {
+        port = 22;
+        forwardAgent = false;
+        serverAliveInterval = 0;
+        serverAliveCountMax = 3;
+        compression = false;
+        addKeysToAgent = "no";
+        hashKnownHosts = false;
+        userKnownHostsFile = "~/.ssh/known_hosts";
+        controlMaster = "auto";
+        controlPath = "~/.ssh/master-%r@%n:%p";
+        controlPersist = "yes";
+        };
     };
   };
   # Workaround for ssh config permissions
