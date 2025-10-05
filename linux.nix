@@ -69,7 +69,6 @@ in
     aws-bitwarden
 
     bitwarden-cli
-    chkrootkit
     lm_sensors
     mlocate
     openldap # TODO: clashes with zulu jdk17 on macos
