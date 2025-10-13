@@ -110,6 +110,7 @@
     openssl
     operator-sdk
     oras
+    osv-scanner
     pipenv
     podlet
     poetry
