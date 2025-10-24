@@ -111,8 +111,6 @@ nix flake show
 - Key tools enabled: direnv, starship prompt, zoxide, eza, atuin, bat
 - Important environment variables in `shell.nix:21-30`:
   - `DOCKER_HOST` points to Podman socket
-  - Claude Code uses Vertex AI (`CLAUDE_CODE_USE_VERTEX = "1"`)
-  - Project ID: `itpc-gcp-ai-eng-claude`
 
 ### Git Configuration
 
