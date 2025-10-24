@@ -93,6 +93,7 @@
   # https://atuin.sh/docs/config/
   programs.atuin = {
     enable = true;
+    daemon.enable = true;
     settings = {
       dialect = "uk";
       workspaces = true;
@@ -109,6 +110,9 @@
         "pnpm"
         "kubectl"
         "oc"
+        "nix"
+        "home-manager"
+        "podman"
       ];
     };
   };
