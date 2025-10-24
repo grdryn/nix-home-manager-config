@@ -149,6 +149,9 @@
 
   programs.fish = {
     enable = true;
+    binds = {
+      "alt-backspace".command = "backward-kill-word";
+    };
   };
 
   programs.ssh = {
