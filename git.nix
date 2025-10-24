@@ -24,7 +24,7 @@
         email = "git@grdryn.xyz";
       };
 
-      aliases = {
+      alias = {
         br = "branch";
         s = "status -u -s";
         cl = "log --stat -C -2";
