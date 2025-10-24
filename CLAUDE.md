@@ -34,11 +34,22 @@ Host configurations selectively import modules based on their needs (e.g., work 
 
 ### Secrets Management
 
-The configuration uses sops-nix for managing secrets:
-- Secrets are stored in `secrets/` directory
+The configuration uses two approaches for managing secrets:
+
+**sops-nix** - For runtime secrets (passwords, API keys):
+- Secrets are stored encrypted in `secrets/` directory
 - Age key file location: `~/.config/sops/age/keys.txt`
 - Default secrets file: `secrets/secrets.yaml`
 - Git-related secrets are included via `linux.nix` into git config
+- Secrets are decrypted at activation time (during `home-manager switch`)
+
+**git-crypt** - For encrypting entire configuration files:
+- Used for host-specific configs that contain sensitive info but need to be available at build time
+- Files marked for encryption in `.gitattributes`
+- Currently encrypts: `work.laptop/gryan.nix`
+- Encrypted in git repository, plain text in working directory
+- Uses symmetric key stored in `.git/git-crypt/keys/default` (local only)
+- To unlock on a new machine: `git-crypt unlock /path/to/keyfile`
 
 ## Common Commands
 
