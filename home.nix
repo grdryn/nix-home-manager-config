@@ -44,7 +44,6 @@
     #chrysalis
     cargo
     cargo-wasi
-    claude-code
     cosign
     crc
     dbus
