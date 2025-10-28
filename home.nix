@@ -38,7 +38,7 @@
     age
     ansible
     awscli2
-    #azure-cli
+    azure-cli
     backblaze-b2
     bandwhich
     #chrysalis
