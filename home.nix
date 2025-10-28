@@ -44,7 +44,7 @@
     #chrysalis
     cargo
     cargo-wasi
-    cosign
+    #cosign
     crc
     dbus
     dconf
@@ -69,7 +69,7 @@
     get_iplayer
     git-crypt
     git-extras
-    git-sim
+    #git-sim
     github-cli
     gnumake
     go
@@ -114,9 +114,6 @@
     podlet
     poetry
     prometheus.cli # promtool, see https://discourse.nixos.org/t/cannot-run-promtool-even-with-prometheus-installed-nixos-minimal/52064/3
-    python312
-    python312Packages.pip
-    python312Packages.psutil
     rtorrent
     rustc
     rustfmt
