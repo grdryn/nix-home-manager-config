@@ -132,6 +132,23 @@ Extensive git alias collection in `git.nix`. Key aliases:
 - `pur` - pull with rebase
 - Signing enabled with SSH key (`~/.ssh/id_ed25519`)
 
+## Troubleshooting
+
+### Investigating Package Dependencies
+
+To find out why a specific package is being installed:
+
+```bash
+# Search for package references in dependency tree
+nix-store -q --tree ~/.nix-profile | grep <package-name>
+
+# Find what packages depend on a specific package
+nix-store -q --referrers /nix/store/<hash>-<package-name> | xargs -I {} basename {}
+```
+
+Example: To find why `python3.12-manim` is installed, the dependency chain is:
+`home.nix` → `git-sim` → `python3.12-manim`
+
 ## Important Notes
 
 - SSH config is managed via home-manager but requires special permissions handling (see `shell.nix:183-186`)
