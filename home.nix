@@ -28,6 +28,8 @@
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "claude-code"
+    "mfcl8690cdwlpr"
+    "mfcl8690cdwcupswrapper"
   ];
 
   # packages are just installed (no configuration applied)
