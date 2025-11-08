@@ -20,6 +20,15 @@
 
     targets.genericLinux.enable = true;
 
+    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+      "mfcl8690cdwcupswrapper"
+      "mfcl8690cdwlpr"
+    ];
+
+    home.packages = with pkgs; [
+      mfcl8690cdwcupswrapper
+    ];
+
     services.mpd = {
       enable = true;
       network.listenAddress = "aorus";
