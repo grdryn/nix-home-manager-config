@@ -289,7 +289,7 @@
       "__pycache__"
       ".direnv"
       "result"
-      ".claude/settings.local.json"
+      "**/.claude/settings.local.json"
     ];
   };
 }
