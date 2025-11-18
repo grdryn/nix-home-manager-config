@@ -48,6 +48,7 @@
     cargo
     cargo-wasi
     #cosign
+    claude-monitor
     crc
     dbus
     dconf

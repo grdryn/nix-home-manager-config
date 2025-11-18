@@ -40,6 +40,7 @@
           beacon
           browse-kill-ring
           cargo
+          claude-code
           company-anaconda
           company-ansible
           company-go
