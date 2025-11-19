@@ -47,7 +47,7 @@
     #chrysalis
     cargo
     cargo-wasi
-    #cosign
+    cosign
     claude-monitor
     crc
     dbus
@@ -73,7 +73,7 @@
     get_iplayer
     git-crypt
     git-extras
-    #git-sim
+    git-sim
     github-cli
     gnumake
     go
