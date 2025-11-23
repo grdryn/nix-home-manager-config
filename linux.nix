@@ -20,7 +20,10 @@ let
 in
 {
 
-  targets.genericLinux.enable = true;
+  targets.genericLinux = {
+    enable = true;
+    gpu.enable = false;
+  };
 
   xdg.userDirs.enable = true;
 
