@@ -29,7 +29,7 @@
       #coverflow-alt-tab breaks alt-tab altogether in F42
       #easyScreenCast broken
       #emoji-selector
-      freon
+      #freon
       gtile
       impatience
       #openweather doesn't exist anymore
