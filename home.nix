@@ -27,6 +27,8 @@
   services.syncthing.enable = true;
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "code-cursor"
+    "cursor"
     "claude-code"
     "mfcl8690cdwlpr"
     "mfcl8690cdwcupswrapper"
@@ -47,8 +49,8 @@
     #chrysalis
     cargo
     cargo-wasi
-    cosign
     claude-monitor
+    cosign
     crc
     dbus
     dconf
