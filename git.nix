@@ -255,12 +255,10 @@
       };
 
       gitlab = {
-        user = "gryan";
+        "gitlab.cee.redhat.com/api/v4" = {
+          user = "gryan";
+        };
       };
-
-      # 'gitlab "gitlab.cee.redhat.com/api/v4"' = {
-      #   user = "gryan";
-      # };
 
       rh-pre-commit = {
         checkSecrets = true;
