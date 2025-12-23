@@ -127,6 +127,7 @@
     rust-analyzer
     shellcheck
     sops
+    spec-kit
     sqlite
     syft
     syncthing
