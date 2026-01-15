@@ -41,6 +41,7 @@
     act
     age
     ansible
+    apkeep
     awscli2
     azure-cli
     backblaze-b2
