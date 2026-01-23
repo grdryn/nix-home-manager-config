@@ -168,7 +168,7 @@
 
     # hack
     metasploit
-    armitage
+    #armitage
     sqlmap
   ];
 
