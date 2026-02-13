@@ -136,7 +136,6 @@
     unixtools.netstat
     libossp_uuid
     uv
-    vdhcoapp
     virtualenv
     weechat
     wireguard-tools
