@@ -34,12 +34,6 @@
     "mfcl8690cdwcupswrapper"
   ];
 
-  home.username = "gryan";
-  home.homeDirectory =
-    if pkgs.stdenv.hostPlatform.isDarwin
-    then "/Users/gryan"
-    else "/var/home/gryan";
-
   # packages are just installed (no configuration applied)
   # programs are installed and configuration applied to dotfiles
   home.packages = with pkgs; [
