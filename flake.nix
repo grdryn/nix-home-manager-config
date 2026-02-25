@@ -32,9 +32,11 @@
 
     # xhmm
     xhmm.url = "github:schuelermine/xhmm/b0";
+
+    mac-app-util.url = "github:hraban/mac-app-util";
   };
 
-  outputs = { self, nixpkgs, home-manager, sops-nix, xhmm, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, sops-nix, xhmm, mac-app-util, ... }@inputs: {
 
     # Available through 'home-manager --flake .#your-username@your-hostname'
     homeConfigurations = {
@@ -43,6 +45,7 @@
         pkgs = nixpkgs.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
         modules = [
+          mac-app-util.homeManagerModules.default
           ./home.nix
           ./shell.nix
           ./emacs.nix
