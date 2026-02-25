@@ -76,7 +76,6 @@
     get_iplayer
     git-crypt
     git-extras
-    git-sim
     github-cli
     gnumake
     go
@@ -119,7 +118,6 @@
     osv-scanner
     pipenv
     podlet
-    poetry
     prometheus.cli # promtool, see https://discourse.nixos.org/t/cannot-run-promtool-even-with-prometheus-installed-nixos-minimal/52064/3
     ruff
     rustc
@@ -139,7 +137,6 @@
     virtualenv
     weechat
     wireguard-tools
-    wl-clipboard
     yt-dlp
     yubikey-manager
     zellij

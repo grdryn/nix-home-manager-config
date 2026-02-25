@@ -72,10 +72,13 @@ in
     aws-bitwarden
 
     bitwarden-cli
+    git-sim
     lm_sensors
     mlocate
     openldap # TODO: clashes with zulu jdk17 on macos
+    poetry
     strace
+    wl-clipboard
     yubioath-flutter
   ];
 
