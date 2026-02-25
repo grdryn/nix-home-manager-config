@@ -15,9 +15,6 @@
  */
 { config, inputs, pkgs, misc, ... }:
 
-let
-  aws-bitwarden = pkgs.callPackage ./scripts/aws-bitwarden {};
-in
 {
 
   targets.genericLinux = {
@@ -68,10 +65,7 @@ in
   };
 
   home.packages = with pkgs; [
-    # custom
-    aws-bitwarden
 
-    bitwarden-cli
     git-sim
     lm_sensors
     mlocate

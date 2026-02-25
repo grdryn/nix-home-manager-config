@@ -53,6 +53,7 @@
     backblaze-b2
     bandit
     bandwhich
+    bitwarden-cli
     #chrysalis
     cargo
     cargo-wasi
