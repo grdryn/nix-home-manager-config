@@ -39,6 +39,20 @@
     # Available through 'home-manager --flake .#your-username@your-hostname'
     homeConfigurations = {
 
+      "gryan@gryan-mac" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
+        extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
+        modules = [
+          ./home.nix
+          ./shell.nix
+          ./emacs.nix
+          ./git.nix
+          ./myrepos.nix
+          # # Host Specific configs
+          ./work.laptop/gryan.nix
+        ];
+      };
+
      "gryan@work.fedora.vm.aarch64" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.aarch64-linux; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
