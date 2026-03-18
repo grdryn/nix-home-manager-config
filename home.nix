@@ -137,6 +137,7 @@
     uv
     virtualenv
     weechat
+    whosthere
     wireguard-tools
     yt-dlp
     yubikey-manager
