@@ -24,6 +24,10 @@
     home-manager.url = "https://flakehub.com/f/nix-community/home-manager/0.1.tar.gz";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    # nix-darwin
+    nix-darwin.url = "github:LnL7/nix-darwin";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
     # Overlays
 
     # sops-nix
@@ -36,7 +40,45 @@
     mac-app-util.url = "github:hraban/mac-app-util";
   };
 
-  outputs = { self, nixpkgs, home-manager, sops-nix, xhmm, mac-app-util, ... }@inputs: {
+  outputs = inputs@{ self, nixpkgs, home-manager, nix-darwin, sops-nix, xhmm, mac-app-util, ... }:
+    {
+
+    homeModules.macos = {
+      imports = [
+        mac-app-util.homeManagerModules.default
+        ./home.nix
+        ./shell.nix
+        ./emacs.nix
+        ./git.nix
+        ./myrepos.nix
+        # # Host Specific configs
+        ./work.laptop/gryan.nix
+        #./macos.nix
+      ];
+      # You can add more shared logic here if needed
+    };
+
+    # Build darwin flake using:
+    # $ darwin-rebuild build --flake .#gryan-mac
+    darwinConfigurations."gryan-mac" = nix-darwin.lib.darwinSystem {
+      # Pass 'inputs' (including self) to the darwin system
+      specialArgs = { inherit inputs; };
+
+      modules = [
+        ./macos.nix
+        home-manager.darwinModules.home-manager
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = false;
+            users.gryan = self.homeModules.macos;
+          };
+
+          # Optionally, use home-manager.extraSpecialArgs to pass
+          # arguments to home.nix
+        }
+      ];
+    };
 
     # Available through 'home-manager --flake .#your-username@your-hostname'
     homeConfigurations = {
@@ -45,14 +87,7 @@
         pkgs = nixpkgs.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
         modules = [
-          mac-app-util.homeManagerModules.default
-          ./home.nix
-          ./shell.nix
-          ./emacs.nix
-          ./git.nix
-          ./myrepos.nix
-          # # Host Specific configs
-          ./work.laptop/gryan.nix
+          self.homeModules.macos
         ];
       };
 

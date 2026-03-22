@@ -12,9 +12,12 @@ This is a Nix home-manager configuration repository that manages user environmen
 
 The repository uses Nix flakes with `flake.nix` as the entry point. It defines multiple `homeConfigurations` for different hosts:
 
+- `gryan@gryan-mac` - aarch64-darwin Apple Silicon Mac configuration
 - `gryan@work.fedora.vm.aarch64` - ARM64 Linux VM configuration
 - `gryan@work.laptop` - x86_64 Linux laptop configuration
 - `grdryn@aorus-desktop` - x86_64 Linux desktop configuration
+
+It also defines a `darwinConfigurations."gryan-mac"` output for system-level macOS configuration via nix-darwin.
 
 ### Module Organization
 
@@ -27,10 +30,11 @@ The configuration is split into topic-based modules that are imported by host co
 - `gnome.nix` - GNOME desktop environment settings
 - `myrepos.nix` - Repository management configuration
 - `linux.nix` - Linux-specific settings including sops-nix for secrets management
+- `macos.nix` - Darwin system configuration (system packages, Tailscale, Nix settings for macOS). This is a nix-darwin system module used in `darwinConfigurations`, not a home-manager module.
 - `work.laptop/gryan.nix` - Host-specific configuration for work laptop
 - `tower.desktop/grdryn.nix` - Host-specific configuration for desktop
 
-Host configurations selectively import modules based on their needs (e.g., work laptop doesn't import `linux.nix`).
+Host configurations selectively import modules based on their needs (e.g., work laptop doesn't import `linux.nix`). The macOS config uses a `homeModules.macos` definition that imports `mac-app-util`, `home.nix`, `shell.nix`, `emacs.nix`, `git.nix`, `myrepos.nix`, and `work.laptop/gryan.nix`. The `mac-app-util` module makes Nix-installed GUI apps visible in Spotlight.
 
 ### Secrets Management
 
@@ -55,13 +59,16 @@ The configuration uses two approaches for managing secrets:
 
 ### Applying Configuration
 
-The current hostname is `work.fedora.vm.aarch64`, so use:
+The current machine is macOS (`gryan-mac`), so use:
 
 ```bash
-# Using the convenience alias (defined in shell.nix:44)
-apply-work.laptop
+# Rebuild Darwin system config (includes home-manager via darwinModules)
+darwin-rebuild switch --flake .#gryan-mac
 
-# Using home-manager directly for current host (work.fedora.vm.aarch64)
+# Or using home-manager directly for mac
+home-manager switch --flake .#gryan@gryan-mac
+
+# For ARM64 Linux VM
 home-manager switch --flake .#gryan@work.fedora.vm.aarch64
 
 # For work laptop
@@ -71,7 +78,7 @@ home-manager switch --flake .#gryan@work.laptop
 home-manager switch --flake .#grdryn@aorus-desktop
 
 # With backup (creates backup with 'bak' extension)
-home-manager switch --flake .#gryan@work.fedora.vm.aarch64 -b bak
+home-manager switch --flake .#gryan@gryan-mac -b bak
 ```
 
 ### Building and Testing
@@ -111,7 +118,7 @@ nix flake show
 ### Package Management
 
 - Base policy: `allowUnfree = false` (see `home.nix:23`)
-- Exception: `claude-code` is explicitly allowed as unfree (see `home.nix:29-31`)
+- Exceptions allowed via `allowUnfreePredicate` (see `home.nix:29-35`): `code-cursor`, `cursor`, `claude-code`, `mfcl8690cdwlpr`, `mfcl8690cdwcupswrapper`
 - Packages are installed via `home.packages` in `home.nix`
 - Linux-specific packages are added in `linux.nix`
 
