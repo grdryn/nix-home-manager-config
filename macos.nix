@@ -20,6 +20,7 @@
       environment.systemPackages = with pkgs;
         [
           atuin
+          container
           fish
           ghostty-bin
           podman
