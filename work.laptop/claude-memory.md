@@ -3,20 +3,14 @@
 - Whenever a jira issue link is provided, it should be put at the top of the git commit description, below the summary/title line
 - git commit summary line should be no more than 50 characters
 
-# Jira
+## Code Navigation and Analysis
 
-## Key Field IDs for RHOAIENG Project
-- **Epic Name**: `customfield_12311141` (string)
-- **Epic Link**: `customfield_12311140` (issue key)
-- **Team**: `customfield_12313240` (string value like "4151")
-- **Component/s**: `components` (array of objects with "name" field)
+**Prefer LSP and language-aware tools over grep/text search for code analysis.**
 
-Despite appearances, the proper ID for "AI Core Platform" is "4151", so if I ask to set team to "AI Core Platform", use "4151" as the value.
+When tracing call sites, finding references, checking implementations, or understanding type relationships, use tools that parse the language semantically:
 
-## Troubleshooting
+- **LSP tool** (when available in IDE): `findReferences`, `goToDefinition`, `goToImplementation`, `incomingCalls`, `outgoingCalls`, `hover` for type info.
+- **CLI language servers** as fallback: `gopls references file.go:#offset`, `gopls call_hierarchy`, etc. These work without a running IDE.
+- **Grep/Glob**: Use only for text-level searches (log messages, string literals, config values) or as a secondary filter after LSP narrows the scope. Never rely on grep alone to answer "what calls this function" or "what types flow into this parameter"—it can't resolve interfaces, embedded types, or cross-package references.
 
-### Field Update Failures
-If direct field updates fail via API:
-1. Create issues first
-2. Use Jira bulk edit UI for field updates
-3. Generate bulk edit URL: `https://issues.redhat.com/issues/?jql=key%20in%20(ISSUE-1,ISSUE-2)`
+**Why this matters:** Grep finds string matches. LSP finds semantic relationships. Grep gives false negatives on interface implementations, type aliases, and cross-package usage. LSP is deterministic—if it says there are 9 references, there are exactly 9.
