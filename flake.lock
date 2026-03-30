@@ -83,12 +83,12 @@
         ]
       },
       "locked": {
-        "lastModified": 1774210133,
-        "narHash": "sha256-yeiWCY9aAUUJ3ebMVjs0UZXRnT5x90MCtpbpOWiXrvM=",
-        "rev": "c6fe2944ad9f2444b2d767c4a5edee7c166e8a95",
-        "revCount": 6394,
+        "lastModified": 1774898676,
+        "narHash": "sha256-0Utnqo+FbB+0CVUi0MI3oonF0Kuzy9VcgRkxl53Euvk=",
+        "rev": "a184bd2f8426087bae93f203403cd4b86c99e57d",
+        "revCount": 6435,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/nix-community/home-manager/0.1.6394%2Brev-c6fe2944ad9f2444b2d767c4a5edee7c166e8a95/019d172b-169f-79af-a803-764524748621/source.tar.gz"
+        "url": "https://api.flakehub.com/f/pinned/nix-community/home-manager/0.1.6435%2Brev-a184bd2f8426087bae93f203403cd4b86c99e57d/019d4035-7b13-7dd6-9f0a-f984ac2d79a4/source.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -219,11 +219,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1773821835,
-        "narHash": "sha256-TJ3lSQtW0E2JrznGVm8hOQGVpXjJyXY2guAxku2O9A4=",
+        "lastModified": 1774709303,
+        "narHash": "sha256-D3Q07BbIA2KnTcSXIqqu9P586uWxN74zNoCH3h2ESHg=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "b40629efe5d6ec48dd1efba650c797ddbd39ace0",
+        "rev": "8110df5ad7abf5d4c0f6fb0f8f978390e77f9685",
         "type": "github"
       },
       "original": {
@@ -250,11 +250,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1774154798,
-        "narHash": "sha256-zsTuloDSdKf+PrI1MsWx5z/cyGEJ8P3eERtAfdP8Bmg=",
+        "lastModified": 1774760784,
+        "narHash": "sha256-D+tgywBHldTc0klWCIC49+6Zlp57Y4GGwxP1CqfxZrY=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "3e0d543e6ba6c0c48117a81614e90c6d8c425170",
+        "rev": "8adb84861fe70e131d44e1e33c426a51e2e0bfa5",
         "type": "github"
       },
       "original": {
@@ -332,11 +332,11 @@
     },
     "xhmm": {
       "locked": {
-        "lastModified": 1755104671,
-        "narHash": "sha256-vNs6UTfofV3ZTLsbxQSXLkymJURSWxEuscSlybhet3M=",
+        "lastModified": 1774373606,
+        "narHash": "sha256-eujLVN8fQORejX9jvIU5B8WsBHPS1f5/toc+IXoc55E=",
         "owner": "schuelermine",
         "repo": "xhmm",
-        "rev": "786cdb0d2736847af1b0b25ea1165dbc6b844b08",
+        "rev": "68e5e6f80c0605c8f32459d1aad0eae8570c68b0",
         "type": "github"
       },
       "original": {
