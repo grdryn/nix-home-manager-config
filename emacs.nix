@@ -41,6 +41,7 @@
           browse-kill-ring
           cargo
           claude-code
+          cmake-mode
           company-anaconda
           company-ansible
           company-go
@@ -91,9 +92,11 @@
           keycast
           lsp-java
           lsp-metals
+          lsp-mode
           lsp-pyright
           lsp-ui
           magit-delta
+          marginalia
           move-text
           nix-mode
           nlinum
