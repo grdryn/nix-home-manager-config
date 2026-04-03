@@ -23,11 +23,13 @@
           container
           fish
           ghostty-bin
+          gnused
           podman
           podman-compose
           podman-desktop
-          tailscale
           starship
+          tailscale
+          tree
           utm
         ];
 
