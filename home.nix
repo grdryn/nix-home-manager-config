@@ -86,6 +86,7 @@
     gosec
     govulncheck
     groovy
+    gws
     hub
     jbake
     jbang
