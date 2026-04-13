@@ -14,3 +14,8 @@ When tracing call sites, finding references, checking implementations, or unders
 - **Grep/Glob**: Use only for text-level searches (log messages, string literals, config values) or as a secondary filter after LSP narrows the scope. Never rely on grep alone to answer "what calls this function" or "what types flow into this parameter"—it can't resolve interfaces, embedded types, or cross-package references.
 
 **Why this matters:** Grep finds string matches. LSP finds semantic relationships. Grep gives false negatives on interface implementations, type aliases, and cross-package usage. LSP is deterministic—if it says there are 9 references, there are exactly 9.
+
+## Jira
+
+- Use the Atlassian JIRA REST API v3 whenever you need to interact with Jira, using the environment variables JIRA_BASE_URL, JIRA_EMAIL, and JIRA_API_TOKEN as appropriate.
+- Use POST /rest/api/3/search/jql for JQL searches, not the removed GET /rest/api/3/search
