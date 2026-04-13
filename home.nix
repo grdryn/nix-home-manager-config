@@ -66,6 +66,7 @@
     dhall-nix
     dhall-yaml
     dig
+    dive
     ffmpeg
     fish
     flac
@@ -127,6 +128,7 @@
     rustfmt
     rust-analyzer
     shellcheck
+    skopeo
     sops
     spec-kit
     sqlite
