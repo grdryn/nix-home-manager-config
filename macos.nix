@@ -21,14 +21,17 @@
         [
           atuin
           container
+          firefox
           fish
           ghostty-bin
           gnused
+          nmap
           podman
           podman-compose
           podman-desktop
           starship
           tailscale
+          thunderbird
           tree
           utm
         ];
