@@ -116,6 +116,7 @@
     ocm
     openshift
     openssl
+    opentofu
     operator-sdk
     oras
     osv-scanner
