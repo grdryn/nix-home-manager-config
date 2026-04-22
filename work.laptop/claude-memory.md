@@ -19,3 +19,5 @@ When tracing call sites, finding references, checking implementations, or unders
 
 - Use the Atlassian JIRA REST API v3 whenever you need to interact with Jira, using the environment variables JIRA_BASE_URL, JIRA_EMAIL, and JIRA_API_TOKEN as appropriate.
 - Use POST /rest/api/3/search/jql for JQL searches, not the removed GET /rest/api/3/search
+
+@RTK.md
