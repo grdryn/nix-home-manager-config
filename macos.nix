@@ -20,18 +20,21 @@
       environment.systemPackages = with pkgs;
         [
           atuin
+          code-cursor
           container
-          firefox
+          firefox-bin
           fish
           ghostty-bin
           gnused
           nmap
+          opencode
+          opencode-desktop
           podman
           podman-compose
           podman-desktop
           starship
           tailscale
-          thunderbird
+          thunderbird-bin
           tree
           utm
         ];
