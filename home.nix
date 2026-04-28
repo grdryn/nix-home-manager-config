@@ -83,6 +83,7 @@
     go
     golangci-lint
     google-cloud-sdk
+    goose-cli
     gopls
     gosec
     govulncheck
