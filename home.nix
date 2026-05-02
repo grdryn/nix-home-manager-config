@@ -146,7 +146,7 @@
     weechat
     whosthere
     wireguard-tools
-    #yt-dlp
+    yt-dlp
     yubikey-manager
     zellij
 
