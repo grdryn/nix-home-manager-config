@@ -17,7 +17,17 @@ When tracing call sites, finding references, checking implementations, or unders
 
 ## Jira
 
-- Use the Atlassian JIRA REST API v3 whenever you need to interact with Jira, using the environment variables JIRA_BASE_URL, JIRA_EMAIL, and JIRA_API_TOKEN as appropriate.
-- Use POST /rest/api/3/search/jql for JQL searches, not the removed GET /rest/api/3/search
+- Use the acli command whenever you need to interact with Jira. See `acli jira --help` for more usage info if needed. Below are some common command patterns.
+
+### Search issues
+acli jira workitem search --jql "<JQL>" --json
+
+### View a single issue (all fields)
+acli jira workitem view KEY --fields '*all' --json
+
+### View specific fields
+acli jira workitem view KEY --fields summary,status,assignee --json
+
+## Tool calling
 
 @RTK.md
