@@ -115,6 +115,7 @@
     ncdu
     nodejs_22
     ocm
+    openshell
     openshift
     openssl
     opentofu
