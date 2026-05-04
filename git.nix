@@ -241,10 +241,6 @@
         default = "current";
       };
 
-      commit = {
-        template = "~/.git-commit-template";
-      };
-
       init = {
         templatedir = "~/.git_template";
         defaultBranch = "main";
