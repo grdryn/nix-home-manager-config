@@ -15,6 +15,29 @@
  */
 { config, inputs, pkgs, misc, ... }: {
 
+  programs.gh = {
+    enable = true;
+    hosts = {
+      "github.com" = {
+        git_protocol = "ssh";
+        user = "grdryn";
+      };
+    };
+    settings = {
+      git_protocol = "ssh";
+
+      prompt = "enabled";
+
+      aliases = {
+        co = "pr checkout";
+        pv = "pr view";
+      };
+
+      spinner = "enabled";
+      telemetry = "disabled";
+    };
+  };
+
   programs.git = {
     enable = true;
 
