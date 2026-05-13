@@ -143,6 +143,7 @@
     unixtools.netstat
     libossp_uuid
     uv
+    vcsi
     virtualenv
     weechat
     whosthere
