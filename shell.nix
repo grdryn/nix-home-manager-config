@@ -21,7 +21,6 @@
   home.sessionVariables = {
     GOPATH = "$HOME/go";
     GO111MODULE = "on";
-    DOCKER_HOST = "unix:///run/user/$UID/podman/podman.sock";
     SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh";
     PYENV_ROOT = "$HOME/.pyenv";
   };
