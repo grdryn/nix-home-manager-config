@@ -15,6 +15,9 @@
  */
 { config, inputs, pkgs, misc, ... }:
 {
+
+  system.primaryUser = "gryan";
+
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
       environment.systemPackages = with pkgs;
@@ -37,10 +40,35 @@
           thunderbird-bin
           tree
           utm
+          vfkit
         ];
 
       services.tailscale = {
         enable = true;
+      };
+
+      homebrew = {
+        enable = true;
+
+        # Automatically update Homebrew and lift uninstalled casks
+        onActivation.autoUpdate = true;
+        onActivation.cleanup = "zap";
+
+        # Taps you want to add
+        # taps = [
+        #   "nvidia/openshell"
+        # ];
+
+        # CLI tools you want from Brew instead of Nix
+        brews = [
+          "docker"
+          "mas" # Mac App Store CLI
+        ];
+
+        # GUI Apps (Casks) you want to manage
+        casks = [
+          "docker-desktop"
+        ];
       };
 
       # Auto upgrade nix package and the daemon service.
@@ -52,7 +80,6 @@
       # Create /etc/zshrc that loads the nix-darwin environment.
       programs.zsh.enable = true;  # default shell on catalina
       programs.fish.enable = true;
-
 
       # Set Git commit hash for darwin-version.
       system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
