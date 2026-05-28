@@ -17,6 +17,9 @@
 
   programs.gh = {
     enable = true;
+    extensions = [
+      pkgs.gh-stack
+    ];
     hosts = {
       "github.com" = {
         git_protocol = "ssh";
