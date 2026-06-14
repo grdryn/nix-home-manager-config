@@ -101,7 +101,7 @@
     kubectl-tree
     kubectl-view-secret
     kubebuilder
-    kubernetes-helm
+    #kubernetes-helm
     kustomize
     k9s
     lame
