@@ -33,7 +33,6 @@
     "$HOME/.jbang/bin"
     "$PYENV_ROOT/bin"
     "$HOME/.cargo/bin"
-
   ];
 
   home.shellAliases = {
@@ -155,6 +154,13 @@
     binds = {
       "alt-backspace".command = "backward-kill-word";
     };
+
+    # Inject the homebrew environment initialization
+    shellInit = ''
+      if test -x /opt/homebrew/bin/brew
+        eval (/opt/homebrew/bin/brew shellenv)
+      end
+    '';
   };
 
   programs.ssh = {

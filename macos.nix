@@ -62,6 +62,7 @@
         # CLI tools you want from Brew instead of Nix
         brews = [
           "docker"
+          "gnu-sed"
           "mas" # Mac App Store CLI
         ];
 
