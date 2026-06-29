@@ -41,6 +41,7 @@
     act
     age
     ansible
+    antigravity-cli
     apkeep
     awscli2
     azure-cli
@@ -74,7 +75,6 @@
     gcc
     gdlv
     geckodriver
-    gemini-cli
     get_iplayer
     git-crypt
     git-extras
