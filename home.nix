@@ -41,7 +41,6 @@
     act
     age
     ansible
-    antigravity-cli
     apkeep
     awscli2
     azure-cli
