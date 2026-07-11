@@ -22,7 +22,10 @@
     gpu.enable = false;
   };
 
-  xdg.userDirs.enable = true;
+  xdg.userDirs = {
+    enable = true;
+    setSessionVariables = false;
+  };
 
   imports = [
     inputs.sops-nix.homeManagerModules.sops
