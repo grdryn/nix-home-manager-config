@@ -169,20 +169,23 @@
     includes = [".config.d/*"];
     enableDefaultConfig = false;
 
-    matchBlocks = {
-      github.extraOptions.UpdateHostKeys = "yes";
+    settings = {
+      "github.com" = {
+        UpdateHostKeys = "yes";
+      };
+
       "*" = {
-        port = 22;
-        forwardAgent = false;
-        serverAliveInterval = 0;
-        serverAliveCountMax = 3;
-        compression = false;
-        addKeysToAgent = "no";
-        hashKnownHosts = false;
-        userKnownHostsFile = "~/.ssh/known_hosts";
-        controlMaster = "auto";
-        controlPath = "~/.ssh/master-%r@%n:%p";
-        controlPersist = "yes";
+        Port = 22;
+        ForwardAgent = false;
+        ServerAliveInterval = 0;
+        ServerAliveCountMax = 3;
+        Compression = false;
+        AddKeysToAgent = "no";
+        HashKnownHosts = false;
+        UserKnownHostsFile = "~/.ssh/known_hosts";
+        ControlMaster = "auto";
+        ControlPath = "~/.ssh/master-%r@%n:%p";
+        ControlPersist = "yes";
         };
     };
   };
