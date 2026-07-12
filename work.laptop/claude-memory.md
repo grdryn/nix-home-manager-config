@@ -15,9 +15,4 @@ When tracing call sites, finding references, checking implementations, or unders
 
 **Why this matters:** Grep finds string matches. LSP finds semantic relationships. Grep gives false negatives on interface implementations, type aliases, and cross-package usage. LSP is deterministic—if it says there are 9 references, there are exactly 9.
 
-## Jira
-
-- Use the Atlassian JIRA REST API v3 whenever you need to interact with Jira, using the environment variables JIRA_BASE_URL, JIRA_EMAIL, and JIRA_API_TOKEN as appropriate.
-- Use POST /rest/api/3/search/jql for JQL searches, not the removed GET /rest/api/3/search
-
 @RTK.md
