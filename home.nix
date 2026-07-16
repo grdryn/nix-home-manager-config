@@ -72,7 +72,6 @@
     flac
     fontconfig
     gcc
-    gdlv
     geckodriver
     get_iplayer
     git-crypt
@@ -110,7 +109,6 @@
     mediainfo
     mergiraf
     mkvtoolnix-cli
-    minikube
     ncdu
     nodejs_22
     ocm
