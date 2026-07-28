@@ -170,8 +170,6 @@
     openstackclient
     swiftclient
 
-    # hack
-    metasploit
     #armitage
     sqlmap
   ];
