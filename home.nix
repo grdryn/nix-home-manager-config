@@ -123,6 +123,7 @@
     podlet
     poppler-utils
     prometheus.cli # promtool, see https://discourse.nixos.org/t/cannot-run-promtool-even-with-prometheus-installed-nixos-minimal/52064/3
+    rosa
     rtk
     ruff
     rustc
