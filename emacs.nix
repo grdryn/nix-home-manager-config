@@ -30,7 +30,7 @@
   programs.emacs = {
     enable = true;
     package = with pkgs; (
-      (emacsPackagesFor emacs30-pgtk).emacsWithPackages (
+      (emacsPackagesFor emacs-pgtk).emacsWithPackages (
         epkgs: with epkgs; [
           adoc-mode
           ag
