@@ -87,12 +87,15 @@
     govulncheck
     groovy
     gws
+    herdr
     hub
+    hunk
     jbake
     jbang
     jdk17
     jira-cli-go
     jq
+    kind
     krb5
     krew
     kubectl
