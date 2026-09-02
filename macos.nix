@@ -18,86 +18,86 @@
 
   system.primaryUser = "gryan";
 
-      # List packages installed in system profile. To search by name, run:
-      # $ nix-env -qaP | grep wget
-      environment.systemPackages = with pkgs;
-        [
-          atuin
-          code-cursor
-          container
-          firefox-bin
-          fish
-          ghostty-bin
-          gnused
-          nmap
-          opencode
-          opencode-desktop
-          podman
-          podman-compose
-          podman-desktop
-          starship
-          tailscale
-          thunderbird-bin
-          tree
-          utm
-          vfkit
-        ];
+  # List packages installed in system profile. To search by name, run:
+  # $ nix-env -qaP | grep wget
+  environment.systemPackages = with pkgs;
+    [
+      atuin
+      code-cursor
+      container
+      firefox-bin
+      fish
+      ghostty-bin
+      gnused
+      nmap
+      opencode
+      opencode-desktop
+      podman
+      podman-compose
+      podman-desktop
+      starship
+      tailscale
+      thunderbird-bin
+      tree
+      utm
+      vfkit
+    ];
 
-      services.tailscale = {
-        enable = true;
-      };
+  services.tailscale = {
+    enable = true;
+  };
 
-      homebrew = {
-        enable = true;
+  homebrew = {
+    enable = true;
 
-        # Automatically update Homebrew and lift uninstalled casks
-        onActivation.autoUpdate = true;
-        onActivation.cleanup = "zap";
+    # Automatically update Homebrew and lift uninstalled casks
+    onActivation.autoUpdate = true;
+    onActivation.cleanup = "zap";
 
-        # Taps you want to add
-        # taps = [
-        #   "nvidia/openshell"
-        # ];
+    # Taps you want to add
+    # taps = [
+    #   "nvidia/openshell"
+    # ];
 
-        # CLI tools you want from Brew instead of Nix
-        brews = [
-          "docker"
-          "gnu-sed"
-          "mas" # Mac App Store CLI
-        ];
+    # CLI tools you want from Brew instead of Nix
+    brews = [
+      "docker"
+      "gnu-sed"
+      "mas" # Mac App Store CLI
+    ];
 
-        # GUI Apps (Casks) you want to manage
-        casks = [
-          "docker-desktop"
-        ];
-      };
+    # GUI Apps (Casks) you want to manage
+    casks = [
+      "docker-desktop"
+    ];
+  };
 
-      # Auto upgrade nix package and the daemon service.
-      #nix.package = pkgs.nix;
+  # Auto upgrade nix package and the daemon service.
+  #nix.package = pkgs.nix;
 
-      # Necessary for using flakes on this system.
-      nix.settings.experimental-features = "nix-command flakes";
+  # Necessary for using flakes on this system.
+  nix.settings.experimental-features = "nix-command flakes";
 
-      # Create /etc/zshrc that loads the nix-darwin environment.
-      programs.zsh.enable = true;  # default shell on catalina
-      programs.fish.enable = true;
+  # Create /etc/zshrc that loads the nix-darwin environment.
+  programs.zsh.enable = true;  # default shell on catalina
+  programs.fish.enable = true;
 
-      # Set Git commit hash for darwin-version.
-      system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
+  # Set Git commit hash for darwin-version.
+  system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
 
-      # Used for backwards compatibility, please read the changelog before changing.
-      # $ darwin-rebuild changelog
-      system.stateVersion = 4;
+  # Used for backwards compatibility, please read the changelog before changing.
+  # $ darwin-rebuild changelog
+  system.stateVersion = 4;
 
-      # The platform the configuration will be used on.
-      nixpkgs.hostPlatform = "aarch64-darwin";
+  # The platform the configuration will be used on.
+  nixpkgs.hostPlatform = "aarch64-darwin";
 
-      nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfree = true;
 
-      nix.settings.system = "aarch64-darwin";
-      nix.extraOptions = ''
+  nix.settings.system = "aarch64-darwin";
+  nix.extraOptions = ''
         extra-platforms = x86_64-darwin aarch64-darwin
       '';
 
-      users.users.gryan.home = "/Users/gryan";
+  users.users.gryan.home = "/Users/gryan";
 }
