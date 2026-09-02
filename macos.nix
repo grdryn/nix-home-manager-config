@@ -47,6 +47,23 @@
     enable = true;
   };
 
+  # Keep CrowdStrike Falcon from monopolizing CPU during spikes.
+  launchd.daemons.renice-crowdstrike = {
+    script = ''
+      for pid in $(/usr/bin/pgrep -f com.crowdstrike.falcon); do
+        /usr/bin/renice 20 -p "$pid"
+      done
+    '';
+
+    serviceConfig = {
+      Label = "com.renice-crowdstrike";
+      StartInterval = 300;
+      RunAtLoad = true;
+      StandardOutPath = "/tmp/renice-crowdstrike.log";
+      StandardErrorPath = "/tmp/renice-crowdstrike.log";
+    };
+  };
+
   homebrew = {
     enable = true;
 
