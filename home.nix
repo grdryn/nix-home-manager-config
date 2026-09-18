@@ -177,6 +177,11 @@
 
     #armitage
     sqlmap
+
+    # formatters used by opencode
+    nixfmt
+    prettier
+    shfmt
   ];
 
   fonts.fontconfig.enable = true;
