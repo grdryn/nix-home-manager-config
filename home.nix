@@ -73,6 +73,7 @@
     fontconfig
     gcc
     geckodriver
+    gettext
     get_iplayer
     git-crypt
     git-extras
