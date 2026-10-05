@@ -38,6 +38,10 @@
     xhmm.url = "github:schuelermine/xhmm/b0";
 
     mac-app-util.url = "github:hraban/mac-app-util";
+
+    # system-manager
+    system-manager.url = "github:numtide/system-manager";
+    system-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -46,6 +50,7 @@
       nixpkgs,
       home-manager,
       nix-darwin,
+      system-manager,
       sops-nix,
       xhmm,
       mac-app-util,
@@ -66,6 +71,20 @@
           #./macos.nix
         ];
         # You can add more shared logic here if needed
+      };
+
+      homeModules.aorusDesktop = {
+        imports = [
+          ./home.nix
+          ./linux.nix
+          ./shell.nix
+          ./emacs.nix
+          ./gnome.nix
+          ./git.nix
+          ./myrepos.nix
+          # Host Specific configs
+          ./tower.desktop/grdryn.nix
+        ];
       };
 
       # Build darwin flake using:
@@ -94,6 +113,34 @@
         ];
       };
 
+      # Build system-manager flake using:
+      # $ nix run .#system-manager -- switch --flake .#aorus-desktop --sudo
+      systemConfigs."aorus-desktop" = system-manager.lib.makeSystemConfig {
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./tower.desktop/system.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              # Users are managed by Fedora; home-manager installs to the
+              # user profile instead of /etc/profiles/per-user.
+              useUserPackages = false;
+              backupFileExtension = "bak";
+              extraSpecialArgs = { inherit inputs; };
+              users.grdryn = self.homeModules.aorusDesktop;
+            };
+          }
+        ];
+      };
+
+      # Pinned system-manager runner matching the flake input, so the
+      # activating binary always corresponds to the locked config version.
+      apps.x86_64-linux.system-manager = {
+        type = "app";
+        program = "${system-manager.packages.x86_64-linux.default}/bin/system-manager";
+      };
+
       # Available through 'home-manager --flake .#your-username@your-hostname'
       homeConfigurations = {
 
@@ -112,7 +159,6 @@
           pkgs = nixpkgs.legacyPackages.aarch64-linux; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
           modules = [
-            xhmm.homeManagerModules.all
             ./home.nix
             ./linux.nix
             ./shell.nix
@@ -132,7 +178,6 @@
             enableWorkSecrets = true;
           }; # Pass flake inputs to our config
           modules = [
-            xhmm.homeManagerModules.all
             ./home.nix
             ./shell.nix
             ./emacs.nix
@@ -148,16 +193,7 @@
           pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
           modules = [
-            xhmm.homeManagerModules.all
-            ./home.nix
-            ./linux.nix
-            ./shell.nix
-            ./emacs.nix
-            ./gnome.nix
-            ./git.nix
-            ./myrepos.nix
-            # Host Specific configs
-            ./tower.desktop/grdryn.nix
+            self.homeModules.aorusDesktop
           ];
         };
 

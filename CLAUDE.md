@@ -17,7 +17,9 @@ The repository uses Nix flakes with `flake.nix` as the entry point. It defines m
 - `gryan@work.laptop` - x86_64 Linux laptop configuration
 - `grdryn@aorus-desktop` - x86_64 Linux desktop configuration
 
-It also defines a `darwinConfigurations."gryan-mac"` output for system-level macOS configuration via nix-darwin.
+It also defines:
+- `darwinConfigurations."gryan-mac"` - system-level macOS configuration via nix-darwin.
+- `systemConfigs."aorus-desktop"` - system-level Linux configuration for aorus-desktop via Numtide system-manager (includes home-manager for grdryn).
 
 ### Module Organization
 
@@ -32,7 +34,8 @@ The configuration is split into topic-based modules that are imported by host co
 - `linux.nix` - Linux-specific settings including sops-nix for secrets management
 - `macos.nix` - Darwin system configuration (system packages, Tailscale, Nix settings for macOS). This is a nix-darwin system module used in `darwinConfigurations`, not a home-manager module.
 - `work.laptop/gryan.nix` - Host-specific configuration for work laptop
-- `tower.desktop/grdryn.nix` - Host-specific configuration for desktop
+- `tower.desktop/grdryn.nix` - Host-specific home-manager configuration for desktop
+- `tower.desktop/system.nix` - System configuration for aorus-desktop via Numtide system-manager
 
 Host configurations selectively import modules based on their needs (e.g., work laptop doesn't import `linux.nix`). The macOS config uses a `homeModules.macos` definition that imports `mac-app-util`, `home.nix`, `shell.nix`, `emacs.nix`, `git.nix`, `myrepos.nix`, and `work.laptop/gryan.nix`. The `mac-app-util` module makes Nix-installed GUI apps visible in Spotlight.
 
@@ -74,7 +77,11 @@ home-manager switch --flake .#gryan@work.fedora.vm.aarch64
 # For work laptop
 home-manager switch --flake .#gryan@work.laptop
 
-# For desktop
+# For desktop system config via system-manager (includes home-manager)
+# Uses the pinned runner app exported by this flake, matching flake.lock
+nix run .#system-manager -- switch --flake .#aorus-desktop --sudo
+
+# Or using home-manager directly for desktop
 home-manager switch --flake .#grdryn@aorus-desktop
 
 # With backup (creates backup with 'bak' extension)
@@ -138,6 +145,23 @@ Extensive git alias collection in `git.nix`. Key aliases:
 - `cam` - commit all with message
 - `pur` - pull with rebase
 - Signing enabled with SSH key (`~/.ssh/id_ed25519`)
+
+### aorus-desktop (Fedora) system-manager specifics
+
+- SELinux is Enforcing. system-manager unit files live under `/nix/store` (labeled `default_t`), so systemd (`init_t`) is denied read/exec and reports "Unit ... not found" (upstream issue numtide/system-manager#115). Path-based relabeling does not survive new generations (every switch creates new store paths); use a local policy module built from actual denials:
+  ```bash
+  sudo setenforce 0                  # permissive: collect AVC denials
+  sudo systemctl daemon-reload
+  sudo systemctl start system-manager.target
+  sudo setenforce 1
+  sudo ausearch -m avc -ts recent | audit2allow -M my-systemd-system-manager
+  sudo semodule -i my-systemd-system-manager.pp
+  sudo systemctl restart system-manager.target
+  ```
+  Repeat the audit2allow step if further denials appear (e.g. exec on service binaries).
+- `environment.etc."environment.d/10-system-manager.conf".enable = false` in `tower.desktop/system.nix`: upstream writes shell-style `${USER}`/`${PATH}` into that file, which environment.d does not expand, poisoning PATH in all sessions (upstream bugs numtide/system-manager#541, fix PR #554 unmerged). The `/etc/profile.d/system-manager-path.sh` variant works correctly and is kept.
+- `services.userborn.enable = false` + `home-manager.useUserPackages = false`: the `grdryn` user is managed by Fedora itself, not system-manager. The `users.users.grdryn` entry in `tower.desktop/system.nix` is inert metadata (home-manager's NixOS module reads `users.users.<name>.home` for `home.homeDirectory`).
+- Always run switch via `nix run .#system-manager` (pinned to flake.lock), not `nix run github:numtide/system-manager` (unpinned master).
 
 ## Troubleshooting
 
