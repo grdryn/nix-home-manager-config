@@ -1,22 +1,29 @@
 /*
- *  Copyright 2024 Gerard Ryan
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
-{ lib, inputs, pkgs, misc, ... }: {
+  Copyright 2024 Gerard Ryan
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
+{
+  lib,
+  inputs,
+  pkgs,
+  misc,
+  ...
+}:
+{
 
   imports = [
-    inputs.xhmm.homeManagerModules.desktop.gnome
+    "${inputs.xhmm}/desktop/gnome/extensions.nix"
   ];
 
   gnome.extensions = {
@@ -35,7 +42,7 @@
       #openweather doesn't exist anymore
       removable-drive-menu
     ];
-    extraExtensions = [];
+    extraExtensions = [ ];
   };
 
   programs.gnome-terminal = {
@@ -95,7 +102,7 @@
 
     "org/gnome/mutter" = {
       workspaces-only-on-primary = false;
-      experimental-features = ["scale-monitor-framebuffer"];
+      experimental-features = [ "scale-monitor-framebuffer" ];
     };
 
     "org/gnome/shell/overrides" = {
@@ -104,7 +111,10 @@
 
     "org/gnome/settings-daemon/plugins/color" = {
       night-light-enabled = true;
-      night-light-last-coordinates = lib.hm.gvariant.mkTuple [ 53.330404550767604 (-6.2591) ];
+      night-light-last-coordinates = lib.hm.gvariant.mkTuple [
+        53.330404550767604
+        (-6.2591)
+      ];
     };
 
     "org/gnome/settings-daemon/plugins/power" = {
@@ -130,7 +140,12 @@
     };
 
     "org/gnome/desktop/input-sources" = {
-      sources = [ ( lib.hm.gvariant.mkTuple [ "xkb" "us+euro" ]) ];
+      sources = [
+        (lib.hm.gvariant.mkTuple [
+          "xkb"
+          "us+euro"
+        ])
+      ];
       xkb-options = [ "caps:ctrl_modifier" ];
     };
 

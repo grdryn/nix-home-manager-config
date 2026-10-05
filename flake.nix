@@ -1,18 +1,18 @@
 /*
- *  Copyright 2024 Gerard Ryan
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
+  Copyright 2024 Gerard Ryan
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
 {
   description = "Nix home-manager Configuration";
 
@@ -38,97 +38,43 @@
     xhmm.url = "github:schuelermine/xhmm/b0";
 
     mac-app-util.url = "github:hraban/mac-app-util";
+
+    # system-manager
+    system-manager.url = "github:numtide/system-manager";
+    system-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nix-darwin, sops-nix, xhmm, mac-app-util, ... }:
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      home-manager,
+      nix-darwin,
+      system-manager,
+      sops-nix,
+      xhmm,
+      mac-app-util,
+      ...
+    }:
     {
 
-    homeModules.macos = {
-      imports = [
-        mac-app-util.homeManagerModules.default
-        ./home.nix
-        ./shell.nix
-        ./emacs.nix
-        ./git.nix
-        ./myrepos.nix
-        # # Host Specific configs
-        ./work.laptop/gryan.nix
-        #./macos.nix
-      ];
-      # You can add more shared logic here if needed
-    };
-
-    # Build darwin flake using:
-    # $ darwin-rebuild build --flake .#gryan-mac
-    darwinConfigurations."gryan-mac" = nix-darwin.lib.darwinSystem {
-      # Pass 'inputs' (including self) to the darwin system
-      specialArgs = { inherit inputs; };
-
-      modules = [
-        ./macos.nix
-        home-manager.darwinModules.home-manager
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = false;
-            users.gryan = self.homeModules.macos;
-          };
-
-          # Optionally, use home-manager.extraSpecialArgs to pass
-          # arguments to home.nix
-        }
-      ];
-    };
-
-    # Available through 'home-manager --flake .#your-username@your-hostname'
-    homeConfigurations = {
-
-      "gryan@gryan-mac" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
-        modules = [
-          self.homeModules.macos
-        ];
-      };
-
-     "gryan@work.fedora.vm.aarch64" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.aarch64-linux; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
-        modules = [
-          xhmm.homeManagerModules.all
-          ./home.nix
-          ./linux.nix
-          ./shell.nix
-          ./emacs.nix
-          ./gnome.nix
-          ./git.nix
-          ./myrepos.nix
-          # Host Specific configs
-          ./work.laptop/gryan.nix
-        ];
-      };
-
-      "gryan@work.laptop" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
-        modules = [
-          xhmm.homeManagerModules.all
+      homeModules.macos = {
+        imports = [
+          mac-app-util.homeManagerModules.default
           ./home.nix
           ./shell.nix
           ./emacs.nix
-          ./gnome.nix
           ./git.nix
           ./myrepos.nix
-          # Host Specific configs
+          # # Host Specific configs
           ./work.laptop/gryan.nix
+          #./macos.nix
         ];
+        # You can add more shared logic here if needed
       };
 
-      "grdryn@aorus-desktop" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
-        modules = [
-          xhmm.homeManagerModules.all
+      homeModules.aorusDesktop = {
+        imports = [
           ./home.nix
           ./linux.nix
           ./shell.nix
@@ -141,6 +87,106 @@
         ];
       };
 
+      # Build darwin flake using:
+      # $ darwin-rebuild build --flake .#gryan-mac
+      darwinConfigurations."gryan-mac" = nix-darwin.lib.darwinSystem {
+        # Pass 'inputs' (including self) to the darwin system
+        specialArgs = { inherit inputs; };
+
+        modules = [
+          ./macos.nix
+          home-manager.darwinModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = false;
+              users.gryan = self.homeModules.macos;
+            };
+
+            # Optionally, use home-manager.extraSpecialArgs to pass
+            # arguments to home.nix
+          }
+        ];
+      };
+
+      # Build system-manager flake using:
+      # $ nix run .#system-manager -- switch --flake .#aorus-desktop --sudo
+      systemConfigs."aorus-desktop" = system-manager.lib.makeSystemConfig {
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./tower.desktop/system.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              # Users are managed by Fedora; home-manager installs to the
+              # user profile instead of /etc/profiles/per-user.
+              useUserPackages = false;
+              backupFileExtension = "bak";
+              extraSpecialArgs = { inherit inputs; };
+              users.grdryn = self.homeModules.aorusDesktop;
+            };
+          }
+        ];
+      };
+
+      # Pinned system-manager runner matching the flake input, so the
+      # activating binary always corresponds to the locked config version.
+      apps.x86_64-linux.system-manager = {
+        type = "app";
+        program = "${system-manager.packages.x86_64-linux.default}/bin/system-manager";
+      };
+
+      # Available through 'home-manager --flake .#your-username@your-hostname'
+      homeConfigurations = {
+
+        "gryan@gryan-mac" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
+          extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
+          modules = [
+            self.homeModules.macos
+          ];
+        };
+
+        "gryan@work.fedora.vm.aarch64" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.aarch64-linux; # Home-manager requires 'pkgs' instance
+          extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
+          modules = [
+            ./home.nix
+            ./linux.nix
+            ./shell.nix
+            ./emacs.nix
+            ./gnome.nix
+            ./git.nix
+            ./myrepos.nix
+            # Host Specific configs
+            ./work.laptop/gryan.nix
+          ];
+        };
+
+        "gryan@work.laptop" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+          extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
+          modules = [
+            ./home.nix
+            ./shell.nix
+            ./emacs.nix
+            ./gnome.nix
+            ./git.nix
+            ./myrepos.nix
+            # Host Specific configs
+            ./work.laptop/gryan.nix
+          ];
+        };
+
+        "grdryn@aorus-desktop" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+          extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
+          modules = [
+            self.homeModules.aorusDesktop
+          ];
+        };
+
+      };
     };
-  };
 }
