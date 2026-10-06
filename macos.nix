@@ -81,6 +81,7 @@
       "docker"
       "gnu-sed"
       "mas" # Mac App Store CLI
+      "rtk-ai/tap/rtk"
     ];
 
     # GUI Apps (Casks) you want to manage
