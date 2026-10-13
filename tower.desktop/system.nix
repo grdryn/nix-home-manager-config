@@ -42,6 +42,9 @@
     "nix-command"
     "flakes"
   ];
+  # Trust grdryn so the numtide substituter (and other cache config) is honored
+  # (root is always trusted; the module default merges it in)
+  nix.settings.trusted-users = [ "grdryn" ];
 
   # Users are managed by Fedora itself, not by system-manager. This entry is
   # inert metadata: home-manager's NixOS module reads

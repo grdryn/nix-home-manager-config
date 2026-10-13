@@ -1,19 +1,26 @@
 /*
- *  Copyright 2024 Gerard Ryan
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
-{ pkgs, lib, misc, ... }: {
+  Copyright 2024 Gerard Ryan
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
+{
+  config,
+  pkgs,
+  lib,
+  misc,
+  ...
+}:
+{
 
   programs.direnv.enable = true;
   programs.dircolors.enable = true;
@@ -37,7 +44,8 @@
   ];
 
   home.shellAliases = {
-    "apply-work.laptop" = "pushd ~/.config/home-manager && nix run home-manager/master -- -b bak switch --flake .#gryan@work.laptop && popd";
+    "apply-work.laptop" =
+      "pushd ~/.config/home-manager && nix run home-manager/master -- -b bak switch --flake .#gryan@work.laptop && popd";
 
     "j!" = "jbang";
 
@@ -141,7 +149,7 @@
           . /etc/bashrc
       fi
 
-      . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+      . "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh"
 
       bind -x '"\C-p": __atuin_history'
 
@@ -167,7 +175,7 @@
   programs.ssh = {
     enable = true;
     # Drop-in includes may be unmanaged or encrypted
-    includes = [".config.d/*"];
+    includes = [ ".config.d/*" ];
     enableDefaultConfig = false;
 
     settings = {
@@ -187,7 +195,7 @@
         ControlMaster = "auto";
         ControlPath = "~/.ssh/master-%r@%n:%p";
         ControlPersist = "yes";
-        };
+      };
     };
   };
   # Workaround for ssh config permissions
@@ -195,7 +203,7 @@
   # https://stackoverflow.com/questions/76955208/nixos-home-manager-ssh-config-permissions/77496055#77496055
   home.file.".ssh/config" = {
     target = ".ssh/config_source";
-    onChange = ''rm -f ~/.ssh/config && cat ~/.ssh/config_source > ~/.ssh/config && chmod 400 ~/.ssh/config'';
+    onChange = "rm -f ~/.ssh/config && cat ~/.ssh/config_source > ~/.ssh/config && chmod 400 ~/.ssh/config";
   };
 
   programs.awscli = {

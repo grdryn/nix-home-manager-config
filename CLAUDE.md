@@ -148,20 +148,38 @@ Extensive git alias collection in `git.nix`. Key aliases:
 
 ### aorus-desktop (Fedora) system-manager specifics
 
-- SELinux is Enforcing. system-manager unit files live under `/nix/store` (labeled `default_t`), so systemd (`init_t`) is denied read/exec and reports "Unit ... not found" (upstream issue numtide/system-manager#115). Path-based relabeling does not survive new generations (every switch creates new store paths); use a local policy module built from actual denials:
+- SELinux is Enforcing. system-manager unit files and Nix store binaries are unlabeled (`default_t`), so systemd (`init_t`) gets denials: units report "Unit ... not found" (read/exec denied; upstream issue numtide/system-manager#115) and service processes die with SIGSEGV (`map` denied during ELF load — no coredump or kernel trace, misleading). Path-based relabeling does not survive new generations (every switch creates new store paths). Use a domain-based local policy module instead.
+
+  Definitive module (re)generation — module-removal-first:
   ```bash
-  sudo setenforce 0                  # permissive: collect AVC denials
-  sudo systemctl daemon-reload
-  sudo systemctl start system-manager.target
+  sudo semodule -r my-systemd-system-manager   # permissive re-exercise only logs
+                                               # what the active module DENIES
+  sudo setenforce 0
+  sudo systemctl daemon-reload                 # force unit re-read (symlink/dir perms,
+                                               # protects next reboot)
+  sudo systemctl restart home-manager-grdryn.service
+  sudo systemctl restart system-manager-path.service 2>/dev/null || true
+  sudo systemctl restart system-manager.target
   sudo setenforce 1
   sudo ausearch -m avc -ts recent | audit2allow -M my-systemd-system-manager
   sudo semodule -i my-systemd-system-manager.pp
-  sudo systemctl restart system-manager.target
+  sudo systemctl restart home-manager-grdryn.service   # verify
   ```
-  Repeat the audit2allow step if further denials appear (e.g. exec on service binaries).
+
+  Rules of the road:
+  - Never regenerate from a bare time window — `semodule -i` replaces the whole
+    module and silently drops rules whose denials fall outside the window.
+  - Archive `my-systemd-system-manager.te`/`.pp` on the host; extend it for new
+    denial classes rather than blind-regenerating.
+  - Rules are type-based (`init_t` → `default_t`): new store paths are covered
+    automatically; only new permission classes need one more iteration.
+  - Exotic future services: run them unconfined instead of growing the policy —
+    `systemd.services."<name>".serviceConfig.SELinuxContext = "system_u:system_r:unconfined_service_t:s0";`
+- The SELinux policy module covers the full file-exec surface (execute/read/open/getattr/map/execute_no_trans/ioctl on `default_t` + unit loading). Known-good module lives on the aorus-desktop host; do not rebuild unless a genuinely new denial class appears.
 - `environment.etc."environment.d/10-system-manager.conf".enable = false` in `tower.desktop/system.nix`: upstream writes shell-style `${USER}`/`${PATH}` into that file, which environment.d does not expand, poisoning PATH in all sessions (upstream bugs numtide/system-manager#541, fix PR #554 unmerged). The `/etc/profile.d/system-manager-path.sh` variant works correctly and is kept.
 - `services.userborn.enable = false` + `home-manager.useUserPackages = false`: the `grdryn` user is managed by Fedora itself, not system-manager. The `users.users.grdryn` entry in `tower.desktop/system.nix` is inert metadata (home-manager's NixOS module reads `users.users.<name>.home` for `home.homeDirectory`).
 - Always run switch via `nix run .#system-manager` (pinned to flake.lock), not `nix run github:numtide/system-manager` (unpinned master).
+- Fish PATH: herdr/zellij spawn fish without a login-shell profile.d chain, so fish never sees `/etc/profile.d` (nix.sh, system-manager-path.sh). `home.sessionPath` in `tower.desktop/grdryn.nix` provides `/nix/var/nix/profiles/default/bin`, `/run/system-manager/sw/bin`, and the HM profile bin instead. With `useUserPackages = false`, `~/.nix-profile` IS the live HM profile (`home.profileDirectory`) — do not delete it.
 
 ## Troubleshooting
 
