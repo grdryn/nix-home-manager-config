@@ -10,16 +10,15 @@ This is a Nix home-manager configuration repository that manages user environmen
 
 ### Flake Structure
 
-The repository uses Nix flakes with `flake.nix` as the entry point. It defines multiple `homeConfigurations` for different hosts:
+The repository uses Nix flakes with `flake.nix` as the entry point. The only standalone `homeConfigurations` entry is:
 
-- `gryan@gryan-mac` - aarch64-darwin Apple Silicon Mac configuration
-- `gryan@work.fedora.vm.aarch64` - ARM64 Linux VM configuration
-- `gryan@work.laptop` - x86_64 Linux laptop configuration
-- `grdryn@aorus-desktop` - x86_64 Linux desktop configuration
+- `grdryn@aorus-desktop` - x86_64 Linux desktop configuration (home-only fast loop; see Applying Configuration)
 
 It also defines:
-- `darwinConfigurations."gryan-mac"` - system-level macOS configuration via nix-darwin.
+- `darwinConfigurations."gryan-mac"` - system-level macOS configuration via nix-darwin (includes home-manager for gryan).
 - `systemConfigs."aorus-desktop"` - system-level Linux configuration for aorus-desktop via Numtide system-manager (includes home-manager for grdryn).
+
+There is deliberately no `homeConfigurations."gryan@gryan-mac"`: the Mac's home is activated by the home-manager module embedded in `darwinConfigurations."gryan-mac"`, and a standalone entry would be a second owner of the same nix profile (`~/.local/state/nix/profiles/profile`), drifting from the darwin generation. On the Mac, always use `darwin-rebuild`.
 
 ### Module Organization
 
@@ -33,7 +32,7 @@ The configuration is split into topic-based modules that are imported by host co
 - `myrepos.nix` - Repository management configuration
 - `linux.nix` - Linux-specific settings including sops-nix for secrets management
 - `macos.nix` - Darwin system configuration (system packages, Tailscale, Nix settings for macOS). This is a nix-darwin system module used in `darwinConfigurations`, not a home-manager module.
-- `work.laptop/gryan.nix` - Host-specific configuration for work laptop
+- `work.laptop/gryan.nix` - Work-specific configuration for gryan (imported by the Mac config via `homeModules.macos`)
 - `tower.desktop/grdryn.nix` - Host-specific home-manager configuration for desktop
 - `tower.desktop/system.nix` - System configuration for aorus-desktop via Numtide system-manager
 
@@ -65,40 +64,46 @@ The configuration uses two approaches for managing secrets:
 The current machine is macOS (`gryan-mac`), so use:
 
 ```bash
-# Rebuild Darwin system config (includes home-manager via darwinModules)
+# Rebuild Darwin system config (includes home-manager via darwinModules).
+# This is the ONLY activation path for the Mac.
 darwin-rebuild switch --flake .#gryan-mac
 
-# Or using home-manager directly for mac
-home-manager switch --flake .#gryan@gryan-mac
-
-# For ARM64 Linux VM
-home-manager switch --flake .#gryan@work.fedora.vm.aarch64
-
-# For work laptop
-home-manager switch --flake .#gryan@work.laptop
-
-# For desktop system config via system-manager (includes home-manager)
+# For desktop: system-manager switch is the default (system bits + home).
 # Uses the pinned runner app exported by this flake, matching flake.lock
 nix run .#system-manager -- switch --flake .#aorus-desktop --sudo
 
-# Or using home-manager directly for desktop
+# Optional desktop fast loop: home only, no sudo, no system bits. It writes
+# the same profile as the system-manager-managed home, so always re-sync
+# with a system-manager switch afterwards.
 home-manager switch --flake .#grdryn@aorus-desktop
 
 # With backup (creates backup with 'bak' extension)
-home-manager switch --flake .#gryan@gryan-mac -b bak
+home-manager switch --flake .#grdryn@aorus-desktop -b bak
 ```
+
+Rule of thumb per host:
+- `gryan-mac` → always `darwin-rebuild switch --flake .#gryan-mac`
+- `aorus-desktop` → default `nix run .#system-manager -- switch --flake .#aorus-desktop --sudo`; standalone `home-manager switch` only as a fast loop, re-sync after
+
+### Why `home-manager` is not on PATH on the Mac (or desktop)
+
+`programs.home-manager.enable = true` (`home.nix`) only installs the `home-manager` CLI when home-manager runs standalone. When home-manager runs as a module — nix-darwin on the Mac, system-manager on the desktop — `submoduleSupport.enable` is set and the CLI is intentionally omitted; activation flows through the parent system manager instead. Consequences:
+
+- `gryan-mac`: no `home-manager` binary; use `darwin-rebuild`
+- `aorus-desktop` (system-manager deploy): no `home-manager` binary; use `nix run .#system-manager`
+- `system-manager` itself is Linux-only and never on PATH; it is only exposed as the pinned flake app `apps.x86_64-linux.system-manager`
 
 ### Building and Testing
 
 ```bash
 # Build configuration without activating (test for errors)
-home-manager build --flake .#gryan@work.fedora.vm.aarch64
+home-manager build --flake .#grdryn@aorus-desktop
 
 # Show what would be built (dry run)
-home-manager build --flake .#gryan@work.fedora.vm.aarch64 --dry-run
+home-manager build --flake .#grdryn@aorus-desktop --dry-run
 
 # Alternative: using nix commands directly
-nix build .#homeConfigurations.gryan@work.fedora.vm.aarch64.activationPackage
+nix build .#homeConfigurations.grdryn@aorus-desktop.activationPackage
 ```
 
 ### Flake Management

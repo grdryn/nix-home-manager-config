@@ -142,53 +142,10 @@
       };
 
       # Available through 'home-manager --flake .#your-username@your-hostname'
+      # NOTE: no "gryan@gryan-mac" entry — the Mac's home is activated by the
+      # home-manager module inside darwinConfigurations."gryan-mac"; a
+      # standalone entry would be a second owner of the same nix profile.
       homeConfigurations = {
-
-        "gryan@gryan-mac" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
-          extraSpecialArgs = {
-            inherit inputs;
-            enableWorkSecrets = true;
-          }; # Pass flake inputs to our config
-          modules = [
-            self.homeModules.macos
-          ];
-        };
-
-        "gryan@work.fedora.vm.aarch64" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.aarch64-linux; # Home-manager requires 'pkgs' instance
-          extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
-          modules = [
-            ./home.nix
-            ./linux.nix
-            ./shell.nix
-            ./emacs.nix
-            ./gnome.nix
-            ./git.nix
-            ./myrepos.nix
-            # Host Specific configs
-            ./work.laptop/gryan.nix
-          ];
-        };
-
-        "gryan@work.laptop" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-          extraSpecialArgs = {
-            inherit inputs;
-            enableWorkSecrets = true;
-          }; # Pass flake inputs to our config
-          modules = [
-            ./home.nix
-            ./shell.nix
-            ./emacs.nix
-            ./gnome.nix
-            ./git.nix
-            ./myrepos.nix
-            # Host Specific configs
-            ./work.laptop/gryan.nix
-          ];
-        };
-
         "grdryn@aorus-desktop" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
