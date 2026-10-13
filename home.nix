@@ -135,6 +135,7 @@
     rustfmt
     rust-analyzer
     shellcheck
+    skills
     skopeo
     sops
     spec-kit
