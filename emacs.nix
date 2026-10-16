@@ -96,12 +96,15 @@
           lsp-pyright
           lsp-ui
           magit-delta
+          magit-section
           marginalia
           move-text
           nix-mode
           nlinum
           operate-on-number
           orderless
+          org
+          org-roam
           pcap-mode
           pinentry
           poly-ansible
