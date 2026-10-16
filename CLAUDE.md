@@ -129,8 +129,8 @@ nix flake show
 
 ### Package Management
 
-- Base policy: `allowUnfree = false` (see `home.nix:23`)
-- Exceptions allowed via `allowUnfreePredicate` (see `home.nix:29-35`): `code-cursor`, `cursor`, `claude-code`, `mfcl8690cdwlpr`, `mfcl8690cdwcupswrapper`
+- Home modules must NOT set `nixpkgs.*` options: `home-manager.useGlobalPkgs = true` on both hosts makes it a hard error (home-manager ≥ 26.11)
+- Unfree policy lives at system level: Mac allows unfree packages and installs `claude-code` via `macos.nix`; aorus uses `allowUnfree = false` plus `allowUnfreePredicate` in `tower.desktop/system.nix:25-34`; standalone aorus fast loop sets printer-driver predicate in `flake.nix`
 - Packages are installed via `home.packages` in `home.nix`
 - Linux-specific packages are added in `linux.nix`
 

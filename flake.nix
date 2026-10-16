@@ -147,7 +147,15 @@
       # standalone entry would be a second owner of the same nix profile.
       homeConfigurations = {
         "grdryn@aorus-desktop" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfreePredicate =
+              pkg:
+              builtins.elem (nixpkgs.lib.getName pkg) [
+                "mfcl8690cdwlpr"
+                "mfcl8690cdwcupswrapper"
+              ];
+          };
           extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
           modules = [
             self.homeModules.aorusDesktop
