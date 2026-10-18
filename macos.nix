@@ -31,8 +31,6 @@
       ghostty-bin
       gnused
       nmap
-      opencode
-      opencode-desktop
       podman
       podman-compose
       podman-desktop

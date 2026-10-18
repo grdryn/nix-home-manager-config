@@ -66,6 +66,7 @@
           ./emacs.nix
           ./git.nix
           ./myrepos.nix
+          ./opencode.nix
           # # Host Specific configs
           ./work.laptop/gryan.nix
           #./macos.nix
@@ -82,6 +83,7 @@
           ./gnome.nix
           ./git.nix
           ./myrepos.nix
+          ./opencode.nix
           # Host Specific configs
           ./tower.desktop/grdryn.nix
         ];
