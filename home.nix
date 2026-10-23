@@ -33,7 +33,6 @@
                           ansible
                           apkeep
                           awscli2
-                          azure-cli
                           backblaze-b2
                           bandit
                           bandwhich
