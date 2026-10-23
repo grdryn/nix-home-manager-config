@@ -67,7 +67,6 @@
 
   home.packages = with pkgs; [
 
-    git-sim
     lm_sensors
     mlocate
     openldap # TODO: clashes with zulu jdk17 on macos
