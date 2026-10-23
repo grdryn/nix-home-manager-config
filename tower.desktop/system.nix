@@ -31,6 +31,7 @@
       "claude-code"
       "mfcl8690cdwlpr"
       "mfcl8690cdwcupswrapper"
+      "rtk"
     ];
 
   # Fedora is outside default Ubuntu/Debian/NixOS list

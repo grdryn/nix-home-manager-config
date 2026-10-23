@@ -156,6 +156,7 @@
               builtins.elem (nixpkgs.lib.getName pkg) [
                 "mfcl8690cdwlpr"
                 "mfcl8690cdwcupswrapper"
+                "rtk"
               ];
           };
           extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
