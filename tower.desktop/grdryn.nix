@@ -27,11 +27,10 @@
   targets.genericLinux.enable = true;
 
   # fish is spawned by herdr/zellij without a login-shell profile.d chain,
-  # so it never sees the system nix or system-manager paths. Make it
+  # so it never sees the system nix paths. Make it
   # self-sufficient via HM session vars (sourced by HM's config.fish).
   home.sessionPath = [
     "/nix/var/nix/profiles/default/bin"
-    "/run/system-manager/sw/bin"
     "${config.home.profileDirectory}/bin"
   ];
 

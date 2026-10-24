@@ -12,11 +12,10 @@ This is a Nix home-manager configuration repository that manages user environmen
 
 The repository uses Nix flakes with `flake.nix` as the entry point. The only standalone `homeConfigurations` entry is:
 
-- `grdryn@aorus-desktop` - x86_64 Linux desktop configuration (home-only fast loop; see Applying Configuration)
+- `grdryn@aorus-desktop` - x86_64 Linux desktop configuration (home-only; see Applying Configuration)
 
 It also defines:
 - `darwinConfigurations."gryan-mac"` - system-level macOS configuration via nix-darwin (includes home-manager for gryan).
-- `systemConfigs."aorus-desktop"` - system-level Linux configuration for aorus-desktop via Numtide system-manager (includes home-manager for grdryn).
 
 There is deliberately no `homeConfigurations."gryan@gryan-mac"`: the Mac's home is activated by the home-manager module embedded in `darwinConfigurations."gryan-mac"`, and a standalone entry would be a second owner of the same nix profile (`~/.local/state/nix/profiles/profile`), drifting from the darwin generation. On the Mac, always use `darwin-rebuild`.
 
@@ -34,7 +33,6 @@ The configuration is split into topic-based modules that are imported by host co
 - `macos.nix` - Darwin system configuration (system packages, Tailscale, Nix settings for macOS). This is a nix-darwin system module used in `darwinConfigurations`, not a home-manager module.
 - `work.laptop/gryan.nix` - Work-specific configuration for gryan (imported by the Mac config via `homeModules.macos`)
 - `tower.desktop/grdryn.nix` - Host-specific home-manager configuration for desktop
-- `tower.desktop/system.nix` - System configuration for aorus-desktop via Numtide system-manager
 
 Host configurations selectively import modules based on their needs (e.g., work laptop doesn't import `linux.nix`). The macOS config uses a `homeModules.macos` definition that imports `mac-app-util`, `home.nix`, `shell.nix`, `emacs.nix`, `git.nix`, `myrepos.nix`, and `work.laptop/gryan.nix`. The `mac-app-util` module makes Nix-installed GUI apps visible in Spotlight.
 
@@ -68,13 +66,7 @@ The current machine is macOS (`gryan-mac`), so use:
 # This is the ONLY activation path for the Mac.
 darwin-rebuild switch --flake .#gryan-mac
 
-# For desktop: system-manager switch is the default (system bits + home).
-# Uses the pinned runner app exported by this flake, matching flake.lock
-nix run .#system-manager -- switch --flake .#aorus-desktop --sudo
-
-# Optional desktop fast loop: home only, no sudo, no system bits. It writes
-# the same profile as the system-manager-managed home, so always re-sync
-# with a system-manager switch afterwards.
+# For desktop: home-manager is the primary activation (no system-manager).
 home-manager switch --flake .#grdryn@aorus-desktop
 
 # With backup (creates backup with 'bak' extension)
@@ -83,15 +75,14 @@ home-manager switch --flake .#grdryn@aorus-desktop -b bak
 
 Rule of thumb per host:
 - `gryan-mac` → always `darwin-rebuild switch --flake .#gryan-mac`
-- `aorus-desktop` → default `nix run .#system-manager -- switch --flake .#aorus-desktop --sudo`; standalone `home-manager switch` only as a fast loop, re-sync after
+- `aorus-desktop` → `home-manager switch --flake .#grdryn@aorus-desktop` (primary); Nix daemon managed via official installer
 
-### Why `home-manager` is not on PATH on the Mac (or desktop)
+### Why `home-manager` is not on PATH on the Mac
 
-`programs.home-manager.enable = true` (`home.nix`) only installs the `home-manager` CLI when home-manager runs standalone. When home-manager runs as a module — nix-darwin on the Mac, system-manager on the desktop — `submoduleSupport.enable` is set and the CLI is intentionally omitted; activation flows through the parent system manager instead. Consequences:
+`programs.home-manager.enable = true` (`home.nix`) only installs the `home-manager` CLI when home-manager runs standalone. When home-manager runs as a module — nix-darwin on the Mac — `submoduleSupport.enable` is set and the CLI is intentionally omitted; activation flows through the parent system manager instead. Consequences:
 
 - `gryan-mac`: no `home-manager` binary; use `darwin-rebuild`
-- `aorus-desktop` (system-manager deploy): no `home-manager` binary; use `nix run .#system-manager`
-- `system-manager` itself is Linux-only and never on PATH; it is only exposed as the pinned flake app `apps.x86_64-linux.system-manager`
+- `aorus-desktop`: `home-manager` binary available (standalone); use `home-manager switch`
 
 ### Building and Testing
 
@@ -151,40 +142,41 @@ Extensive git alias collection in `git.nix`. Key aliases:
 - `pur` - pull with rebase
 - Signing enabled with SSH key (`~/.ssh/id_ed25519`)
 
-### aorus-desktop (Fedora) system-manager specifics
+### aorus-desktop (Fedora) Nix daemon specifics
 
-- SELinux is Enforcing. system-manager unit files and Nix store binaries are unlabeled (`default_t`), so systemd (`init_t`) gets denials: units report "Unit ... not found" (read/exec denied; upstream issue numtide/system-manager#115) and service processes die with SIGSEGV (`map` denied during ELF load — no coredump or kernel trace, misleading). Path-based relabeling does not survive new generations (every switch creates new store paths). Use a domain-based local policy module instead.
+- Nix daemon installed via official installer (`sh <(curl -L https://nixos.org/nix/install) --daemon`). Manages `/etc/nix/nix.conf`, systemd units (`nix-daemon.service`, `nix-daemon.socket`), and SELinux contexts.
+- SELinux is Enforcing. Nix store binaries are unlabeled (`default_t`), so systemd (`init_t`) may get denials when starting `nix-daemon.service`. Use a domain-based local policy module (`init_t` → `default_t`).
 
   Definitive module (re)generation — module-removal-first:
   ```bash
-  sudo semodule -r my-systemd-system-manager   # permissive re-exercise only logs
-                                               # what the active module DENIES
+  sudo semodule -r my-nix-daemon           # permissive re-exercise only logs
+                                             # what the active module DENIES
   sudo setenforce 0
-  sudo systemctl daemon-reload                 # force unit re-read (symlink/dir perms,
-                                               # protects next reboot)
-  sudo systemctl restart home-manager-grdryn.service
-  sudo systemctl restart system-manager-path.service 2>/dev/null || true
-  sudo systemctl restart system-manager.target
+  sudo systemctl daemon-reload
+  sudo systemctl restart nix-daemon
+  nix build nixpkgs#hello                  # exercise Nix operations
+  sudo systemctl restart nix-daemon
   sudo setenforce 1
-  sudo ausearch -m avc -ts recent | audit2allow -M my-systemd-system-manager
-  sudo semodule -i my-systemd-system-manager.pp
-  sudo systemctl restart home-manager-grdryn.service   # verify
+  sudo ausearch -m avc -ts recent | audit2allow -M my-nix-daemon
+  sudo semodule -i my-nix-daemon.pp
+  sudo systemctl restart nix-daemon        # verify
   ```
 
   Rules of the road:
   - Never regenerate from a bare time window — `semodule -i` replaces the whole
     module and silently drops rules whose denials fall outside the window.
-  - Archive `my-systemd-system-manager.te`/`.pp` on the host; extend it for new
+  - Archive `my-nix-daemon.te`/`.pp` on the host; extend it for new
     denial classes rather than blind-regenerating.
   - Rules are type-based (`init_t` → `default_t`): new store paths are covered
     automatically; only new permission classes need one more iteration.
   - Exotic future services: run them unconfined instead of growing the policy —
     `systemd.services."<name>".serviceConfig.SELinuxContext = "system_u:system_r:unconfined_service_t:s0";`
-- The SELinux policy module covers the full file-exec surface (execute/read/open/getattr/map/execute_no_trans/ioctl on `default_t` + unit loading). Known-good module lives on the aorus-desktop host; do not rebuild unless a genuinely new denial class appears.
-- `environment.etc."environment.d/10-system-manager.conf".enable = false` in `tower.desktop/system.nix`: upstream writes shell-style `${USER}`/`${PATH}` into that file, which environment.d does not expand, poisoning PATH in all sessions (upstream bugs numtide/system-manager#541, fix PR #554 unmerged). The `/etc/profile.d/system-manager-path.sh` variant works correctly and is kept.
-- `services.userborn.enable = false` + `home-manager.useUserPackages = false`: the `grdryn` user is managed by Fedora itself, not system-manager. The `users.users.grdryn` entry in `tower.desktop/system.nix` is inert metadata (home-manager's NixOS module reads `users.users.<name>.home` for `home.homeDirectory`).
-- Always run switch via `nix run .#system-manager` (pinned to flake.lock), not `nix run github:numtide/system-manager` (unpinned master).
-- Fish PATH: herdr/zellij spawn fish without a login-shell profile.d chain, so fish never sees `/etc/profile.d` (nix.sh, system-manager-path.sh). `home.sessionPath` in `tower.desktop/grdryn.nix` provides `/nix/var/nix/profiles/default/bin`, `/run/system-manager/sw/bin`, and the HM profile bin instead. With `useUserPackages = false`, `~/.nix-profile` IS the live HM profile (`home.profileDirectory`) — do not delete it.
+- `environment.etc."environment.d/10-system-manager.conf".enable = false` was in `tower.desktop/system.nix` (now deleted): upstream wrote shell-style `${USER}`/`${PATH}` into that file, which environment.d does not expand, poisoning PATH in all sessions (upstream bugs numtide/system-manager#541, fix PR #554 unmerged).
+- Fish PATH: herdr/zellij spawn fish without a login-shell profile.d chain, so fish never sees `/etc/profile.d` (nix.sh). `home.sessionPath` in `tower.desktop/grdryn.nix` provides `/nix/var/nix/profiles/default/bin` and the HM profile bin instead. With `useUserPackages = false`, `~/.nix-profile` IS the live HM profile (`home.profileDirectory`) — do not delete it.
+- `/etc/nix/nix.conf` should be manually configured post-install for:
+  - `experimental-features = nix-command flakes`
+  - `trusted-users = root grdryn`
+  - Optional substituters: `substituters = https://cache.nixos.org https://numtide.cachix.org`
 
 ## Troubleshooting
 
