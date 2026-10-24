@@ -26,6 +26,27 @@
 
   targets.genericLinux.enable = true;
 
+  sops = {
+    secrets.openrouter_api_key.sopsFile = ../secrets/openrouter.yaml;
+    templates."openrouter-env".content = ''
+      export OPENROUTER_API_KEY="${config.sops.placeholder.openrouter_api_key}"
+    '';
+  };
+
+  home.file.".envrc".text = ''
+    source "${config.sops.templates."openrouter-env".path}"
+  '';
+
+  programs.opencode = {
+    settings = {
+      providers = {
+        openrouter = {
+          settings.apiKey = "{env:OPENROUTER_API_KEY}";
+        };
+      };
+    };
+  };
+
   # fish is spawned by herdr/zellij without a login-shell profile.d chain,
   # so it never sees the system nix paths. Make it
   # self-sufficient via HM session vars (sourced by HM's config.fish).
