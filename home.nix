@@ -29,6 +29,7 @@
   home.packages = with pkgs; [
     # from nixpkgs
     act
+    actionlint
     age
     ansible
     apkeep
