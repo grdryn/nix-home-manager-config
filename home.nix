@@ -132,7 +132,7 @@
     sqlite
     syft
     syncthing
-    tektoncd-cli
+    #tektoncd-cli
     texinfoInteractive
     unixtools.netstat
     libossp_uuid
