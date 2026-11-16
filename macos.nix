@@ -24,51 +24,6 @@
 
   system.primaryUser = "gryan";
 
-  # firefox-bin repacks Mozilla's DMG, which invalidates Mozilla's code
-  # signature on the launcher (hidden as .firefox-old). macOS AMFI kills
-  # unsigned code with restricted entitlements on launch. Re-sign ad-hoc
-  # so the browser can start.
-  nixpkgs.overlays = [
-    (final: prev: {
-      firefox-bin = prev.firefox-bin.overrideAttrs (old: {
-        # firefox-bin uses buildCommand, which bypasses all stdenv phases,
-        # so postInstall hooks never run — append to buildCommand instead.
-        buildCommand = (old.buildCommand or "") + ''
-          MACOS_DIR="$out/Applications/Firefox.app/Contents/MacOS"
-          for f in \
-            "$MACOS_DIR/.firefox-old" \
-            "$MACOS_DIR/plugin-container" \
-            "$MACOS_DIR/crashhelper" \
-            "$MACOS_DIR/pingsender" \
-            "$MACOS_DIR/nmhproxy" \
-            "$MACOS_DIR/gpu-helper.app/Contents/MacOS/Firefox GPU Helper" \
-            "$MACOS_DIR/plugin-container.app/Contents/MacOS/plugin-container"; do
-            if [ -e "$f" ]; then
-              d=$(dirname "$f")
-              b=$(basename "$f")
-              chmod u+w "$d"
-              tmp="$d/.$b.to-sign"
-              rm -f "$tmp"
-              # f may be a symlink into the read-only unwrapped store
-              # path; sign a real copy and swap it in.
-              cp "$f" "$tmp"
-              chmod u+w "$tmp"
-              /usr/bin/codesign --remove-signature "$tmp" 2>/dev/null || true
-              /usr/bin/codesign -f -s - "$tmp"
-              rm -f "$f"
-              mv "$tmp" "$f"
-              chmod 555 "$f"
-            fi
-          done
-        '';
-        __impureHostDeps = (old.__impureHostDeps or [ ]) ++ [
-          "/usr/bin/codesign"
-          "/usr/sbin/spctl"
-        ];
-      });
-    })
-  ];
-
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
@@ -76,7 +31,6 @@
     code-cursor
     claude-code
     container
-    firefox-bin
     fish
     ghostty-bin
     gnused
@@ -135,6 +89,7 @@
     # GUI Apps (Casks) you want to manage
     casks = [
       "docker-desktop"
+      "firefox"
     ];
   };
 
@@ -167,14 +122,15 @@
   };
 
   nix.settings.system = "aarch64-darwin";
+  # Required for nix-darwin: its activation script and git fetchers declare
+  # these impure host deps; the daemon rejects builds without them allowlisted.
   nix.settings.allowed-impure-host-deps = [
-    "/usr/bin/codesign"
     "/bin/sh"
+    "/usr/lib/libSystem.B.dylib"
+    "/usr/lib/system/libunc.dylib"
+    "/dev/zero"
     "/dev/random"
     "/dev/urandom"
-    "/dev/zero"
-    "/usr/lib"
-    "/usr/sbin"
   ];
   nix.extraOptions = ''
     extra-platforms = x86_64-darwin aarch64-darwin

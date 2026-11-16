@@ -36,8 +36,6 @@
 
     # xhmm
     xhmm.url = "github:schuelermine/xhmm/b0";
-
-    mac-app-util.url = "github:hraban/mac-app-util";
   };
 
   outputs =
@@ -48,14 +46,20 @@
       nix-darwin,
       sops-nix,
       xhmm,
-      mac-app-util,
       ...
     }:
     {
 
       homeModules.macos = {
         imports = [
-          mac-app-util.homeManagerModules.default
+          # mac-app-util (SBCL trampolines) removed: its SBCL build fails on
+          # macOS 27, and home-manager's copyApps supersedes it — it copies
+          # real app bundles into ~/Applications/Home Manager Apps so
+          # Spotlight and TCC work without trampolines.
+          ({ ... }: {
+            targets.darwin.linkApps.enable = false;
+            targets.darwin.copyApps.enable = true;
+          })
           ./home.nix
           ./shell.nix
           ({ config, lib, ... }: {
