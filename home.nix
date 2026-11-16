@@ -76,6 +76,7 @@
     gopls
     gosec
     govulncheck
+    graphviz
     groovy
     gws
     herdr
