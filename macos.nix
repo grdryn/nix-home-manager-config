@@ -1,46 +1,51 @@
 /*
- *  Copyright 2026 Gerard Ryan
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
-{ config, inputs, pkgs, misc, ... }:
+  Copyright 2026 Gerard Ryan
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
+{
+  config,
+  inputs,
+  pkgs,
+  misc,
+  ...
+}:
 {
 
   system.primaryUser = "gryan";
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages = with pkgs;
-    [
-      atuin
-      code-cursor
-      claude-code
-      container
-      firefox-bin
-      fish
-      ghostty-bin
-      gnused
-      nmap
-      podman
-      podman-compose
-      podman-desktop
-      starship
-      tailscale
-      thunderbird-bin
-      tree
-      utm
-      vfkit
-    ];
+  environment.systemPackages = with pkgs; [
+    atuin
+    code-cursor
+    claude-code
+    container
+    firefox-bin
+    fish
+    ghostty-bin
+    gnused
+    nmap
+    podman
+    podman-compose
+    podman-desktop
+    starship
+    tailscale
+    thunderbird-bin
+    tree
+    utm
+    vfkit
+  ];
 
   services.tailscale = {
     enable = true;
@@ -110,10 +115,16 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  # Keep sudo Touch ID configuration in nix-darwin-managed sudo_local.
+  security.pam.services.sudo_local = {
+    enable = true;
+    touchIdAuth = true;
+  };
+
   nix.settings.system = "aarch64-darwin";
   nix.extraOptions = ''
-        extra-platforms = x86_64-darwin aarch64-darwin
-      '';
+    extra-platforms = x86_64-darwin aarch64-darwin
+  '';
 
   users.users.gryan.home = "/Users/gryan";
 }

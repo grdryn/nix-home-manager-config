@@ -58,6 +58,37 @@
           mac-app-util.homeManagerModules.default
           ./home.nix
           ./shell.nix
+          ({ config, lib, ... }: {
+            # Start Herdr in Aqua so pane processes can reach pam_tid's UI.
+            launchd.agents.herdr-server = {
+              enable = true;
+              domain = "gui";
+              config = {
+                EnvironmentVariables = {
+                  PATH = lib.concatStringsSep ":" [
+                    "${config.home.profileDirectory}/bin"
+                    "/run/current-system/sw/bin"
+                    "/opt/homebrew/bin"
+                    "/opt/homebrew/sbin"
+                    "/usr/local/bin"
+                    "/nix/var/nix/profiles/default/bin"
+                    "/usr/bin"
+                    "/bin"
+                    "/usr/sbin"
+                    "/sbin"
+                  ];
+                };
+                ProgramArguments = [
+                  (lib.getExe config.programs.herdr.package)
+                  "server"
+                ];
+                RunAtLoad = true;
+                LimitLoadToSessionType = "Aqua";
+                StandardOutPath = "/tmp/herdr-server.launchd.out";
+                StandardErrorPath = "/tmp/herdr-server.launchd.err";
+              };
+            };
+          })
           ./emacs.nix
           ./git.nix
           ./myrepos.nix
