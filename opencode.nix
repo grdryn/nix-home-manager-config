@@ -27,6 +27,7 @@
     opencode
     rtk
     skills
+    mcp-nixos
   ];
   programs.opencode = {
     enable = true;
