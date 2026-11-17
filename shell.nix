@@ -28,7 +28,6 @@
   home.sessionVariables = {
     GOPATH = "$HOME/go";
     GO111MODULE = "on";
-    SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh";
     PYENV_ROOT = "$HOME/.pyenv";
     KUBECONFIG = "/tmp/kubeconfig";
   };
@@ -192,6 +191,9 @@
         ControlMaster = "auto";
         ControlPath = "~/.ssh/master-%r@%n:%p";
         ControlPersist = "yes";
+      }
+      // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
+        SecurityKeyProvider = "/usr/lib/ssh-keychain.dylib";
       };
     };
   };

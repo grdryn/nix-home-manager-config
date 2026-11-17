@@ -1,19 +1,26 @@
 /*
- *  Copyright 2024 Gerard Ryan
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
-{ config, inputs, pkgs, misc, ... }: {
+  Copyright 2024 Gerard Ryan
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
+{
+  config,
+  inputs,
+  pkgs,
+  misc,
+  ...
+}:
+{
 
   programs.gh = {
     enable = true;
@@ -153,7 +160,7 @@
         findmydeletes = "log --author='Gerard Ryan' --diff-filter=D --since=2.years.ago";
 
         #https://git.wiki.kernel.org/index.php?title=Aliases;
-        oneline ="!_() { $(test $# -eq 0 && echo xargs -L1) git log --no-walk --decorate --oneline \"$@\"; }; _";
+        oneline = "!_() { $(test $# -eq 0 && echo xargs -L1) git log --no-walk --decorate --oneline \"$@\"; }; _";
         tips = "!_() { t=$(git rev-list --no-merges --max-count=1 \"$@\"); if test -n \"$t\"; then echo $t; _ \"$@\" ^$t; fi; }; _";
         empty-tree-sha1 = "hash-object -t tree /dev/null";
         whitespaceviolations = "!git diff --check $(git empty-tree-sha1)";
@@ -193,7 +200,7 @@
 
       delta = {
         line-numbers = true;
-        navigate = true;    # use n and N to move between diff sections
+        navigate = true; # use n and N to move between diff sections
         side-by-side = true;
       };
 
@@ -288,8 +295,12 @@
     };
 
     signing = {
-      key = "~/.ssh/id_ed25519";
-      signByDefault = builtins.stringLength "~/.ssh/id_ed25519" > 0;
+      key =
+        if pkgs.stdenv.hostPlatform.isDarwin then
+          "~/.ssh/id_ecdsa_sk_secure_enclave.pub"
+        else
+          "~/.ssh/id_ed25519_yk5_black";
+      signByDefault = true;
     };
 
     lfs.enable = true;
