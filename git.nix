@@ -187,6 +187,7 @@
 
       feature.manyFiles = false; # needs to be false for libgit2
       gpg.format = "ssh";
+      gpg.ssh.allowedSignersFile = "~/.config/git/allowed_signers";
 
       core = {
         pager = "delta";
