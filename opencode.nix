@@ -35,6 +35,10 @@
     settings = {
       "$schema" = "https://opencode.ai/config.json";
       default_agent = "plan";
+      #   Sharing isn't implemented in V2 yet; keep it off by
+      #   default when it lands because we often expect usage on
+      #   private data
+      share = "disabled";
       subagent_depth = 2;
       compaction = {
         prune = true;
