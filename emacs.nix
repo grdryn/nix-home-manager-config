@@ -105,6 +105,7 @@
           orderless
           org
           org-roam
+          org-roam-ui
           pcap-mode
           pinentry
           poly-ansible
